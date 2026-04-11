@@ -1,5 +1,22 @@
 export const enProjects = [
   {
+    id: "melodymap",
+    title: "MelodyMap",
+    meta: "Independent product build · Apr 2026 - Present",
+    summary:
+      "A practice management platform for therapists, built around schedule-driven preparation, reusable facility context, structured session planning, and mileage tracking.",
+    tags: ["Healthtech SaaS", "Workflow OS", "AI planning"],
+    screenshots: [],
+    bullets: [
+      "Defined MelodyMap as a workflow product for therapists rather than a generic chatbot or note-taking tool, centered on preparation, session delivery, and follow-up.",
+      "Built the product around a calendar-native flow so imported schedules determine where the therapist is going, what location context to load, what to prepare, and what mileage to capture afterward.",
+      "Architected the application as a layered system: Next.js 15 on the frontend, a FastAPI backend, async SQLAlchemy repositories, Alembic migrations, and PostgreSQL as the single system of record.",
+      "Designed session-plan generation as structured, export-ready blocks and used PostgreSQL + pgvector to retrieve semantically similar past debriefs so plans improve over time at each location.",
+      "Enforced HIPAA-minded prompt minimization by passing only sanitized context into the model, hashing prompts into audit logs instead of storing raw text, and building through an AI-agent harness that lets a solo founder ship at the pace of a small team.",
+    ],
+    links: [],
+  },
+  {
     id: "ai",
     title: "AI Agent Orchestration Platform",
     meta: "Personal project · March 2026 - Present",

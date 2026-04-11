@@ -83,8 +83,26 @@ export const enSite = {
     body: "A few representative projects that show how I think about infrastructure, interfaces, and delivery.",
     primaryProjects: [
       {
-        id: "ai-platform",
+        id: "melodymap",
         tone: "signal",
+        tags: ["Healthtech SaaS", "Workflow OS", "AI planning"],
+        title: "MelodyMap",
+        meta: "Independent product build · Apr 2026 - Present",
+        summary:
+          "A practice management OS for therapists that starts from the calendar and turns preparation, session planning, and mileage tracking into one structured workflow.",
+        lead:
+          "I am building it around how therapists actually work: where they are going, which location they are serving, what has worked there before, what session plan to prepare, and what to log afterward.",
+        highlights: [
+          "Calendar-native workflow with location context, preparation cues, and one-click mileage capture.",
+          "Structured session plans informed by past debriefs at similar locations through PostgreSQL + pgvector retrieval.",
+          "Production-grade SaaS architecture using Next.js 15, FastAPI, async SQLAlchemy, Alembic, and HIPAA-minded prompt handling.",
+        ],
+        modalProjectId: "melodymap",
+        actions: [{ label: "Open project details", kind: "modal", projectId: "melodymap" }],
+      },
+      {
+        id: "ai-platform",
+        tone: "cyan",
         tags: ["Multi-agent systems", "LLM", "Operations UI"],
         title: "AI Agent Orchestration Platform",
         meta: "Personal project · 2026 - Present",
@@ -104,7 +122,7 @@ export const enSite = {
       },
       {
         id: "tennis-capstone",
-        tone: "cyan",
+        tone: "amber",
         tags: ["Machine learning", "YOLOv8", "Video analytics"],
         title: "MS-BA Capstone: Tennis Performance Analytics",
         meta: "Arizona State University · 2024",

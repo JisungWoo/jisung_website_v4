@@ -237,6 +237,22 @@
   const renderModalProject = (project) => {
     if (!modalContent) return;
 
+    const mediaPair = Array.isArray(project.imagePair) && project.imagePair.length
+      ? `
+      <div class="modal-media-pair">
+        ${project.imagePair
+          .map((src, index) => {
+            const containClass =
+              (index === 0 && project.containFirstImage) || (index === 1 && project.containSecondImage)
+                ? "contain"
+                : "";
+
+            return `<img class="${containClass}" src="${src}" alt="${project.title}" />`;
+          })
+          .join("")}
+      </div>`
+      : "";
+
     const screenshots = Array.isArray(project.screenshots) && project.screenshots.length
       ? `
       <div class="modal-gallery">
@@ -272,10 +288,7 @@
         <p>${project.meta}</p>
         <p class="modal-copy">${project.summary}</p>
       </header>
-      <div class="modal-media-pair">
-        <img class="${project.containFirstImage ? "contain" : ""}" src="${project.imagePair[0]}" alt="${project.title}" />
-        <img class="${project.containSecondImage ? "contain" : ""}" src="${project.imagePair[1]}" alt="${project.title}" />
-      </div>
+      ${mediaPair}
       ${screenshots}
       <ul class="modal-bullets">${project.bullets.map((bullet) => `<li>${bullet}</li>`).join("")}</ul>
       ${links}`;

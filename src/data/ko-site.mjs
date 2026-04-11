@@ -83,8 +83,26 @@ export const koSite = {
     body: "인프라, 인터페이스, 전달 방식이 어떻게 맞물리는지 보여 줄 수 있는 대표 작업들만 골랐습니다.",
     primaryProjects: [
       {
-        id: "ai-platform",
+        id: "melodymap",
         tone: "signal",
+        tags: ["Healthtech SaaS", "Workflow OS", "AI planning"],
+        title: "MelodyMap",
+        meta: "제품 개발 · 2026년 4월 - 현재",
+        summary:
+          "치료사를 위한 실무 운영 플랫폼으로, 일정 확인부터 세션 준비, 기관별 맥락 관리, 이동 기록까지 흩어진 업무를 하나의 흐름으로 정리하는 제품입니다.",
+        lead:
+          "핵심은 치료사의 실제 하루를 기준으로 설계하는 것입니다. 어디에 가는지, 어떤 기관인지, 이전에 무엇이 잘 맞았는지, 어떤 세션을 준비해야 하는지, 이동 기록까지 자연스럽게 이어지도록 만들고 있습니다.",
+        highlights: [
+          "캘린더를 중심으로 방문 일정, 준비 항목, 기관 맥락, 이동 기록이 연결되는 구조.",
+          "기관별 과거 디브리프를 pgvector로 검색해 다음 세션 계획에 반영하는 설계.",
+          "Next.js 15, FastAPI, PostgreSQL 기반으로 구독형 SaaS 출시를 전제로 개발 중인 제품.",
+        ],
+        modalProjectId: "melodymap",
+        actions: [{ label: "프로젝트 자세히 보기", kind: "modal", projectId: "melodymap" }],
+      },
+      {
+        id: "ai-platform",
+        tone: "cyan",
         tags: ["멀티 에이전트", "LLM", "운영 UI"],
         title: "AI 에이전트 오케스트레이션 플랫폼",
         meta: "개인 프로젝트 · 2026년 - 현재",
