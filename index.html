@@ -1,1400 +1,454 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="dark">
+<html lang="en" data-theme="light">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Jisung Woo – Data Engineer</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
-  <style>
-/* =========================================================
-   DESIGN TOKENS — DARK (default)
-========================================================= */
-:root {
-  --bg0: #09090f;
-  --bg1: #0e0e16;
-  --bg2: #14141d;
-  --bg3: #1a1a26;
-  --surface:       #1e1e2c;
-  --surface-hover: #25253a;
-  --border:        rgba(255,255,255,0.07);
-  --border-hi:     rgba(255,255,255,0.13);
-
-  --text1: #eeeef8;
-  --text2: #9090b0;
-  --text3: #55557a;
-
-  --accent:      #6366f1;
-  --accent-hi:   #818cf8;
-  --accent-dim:  rgba(99,102,241,0.1);
-  --accent-bdr:  rgba(99,102,241,0.28);
-
-  --cyan:      #22d3ee;
-  --cyan-dim:  rgba(34,211,238,0.09);
-  --green:     #34d399;
-  --green-dim: rgba(52,211,153,0.09);
-  --amber:     #fbbf24;
-  --amber-dim: rgba(251,191,36,0.09);
-  --purple:    #a78bfa;
-  --purple-dim:rgba(167,139,250,0.09);
-  --slate:     #94a3b8;
-  --slate-dim: rgba(148,163,184,0.09);
-
-  --shadow-sm: 0 1px 6px rgba(0,0,0,0.35);
-  --shadow-md: 0 4px 24px rgba(0,0,0,0.55);
-  --shadow-lg: 0 12px 48px rgba(0,0,0,0.7);
-  --t: 0.25s ease;
-  --ts: 0.6s ease;
-}
-
-/* =========================================================
-   DESIGN TOKENS — LIGHT
-========================================================= */
-[data-theme="light"] {
-  --bg0: #f5f4f0;
-  --bg1: #faf9f7;
-  --bg2: #ffffff;
-  --bg3: #f2f1ee;
-  --surface:       #ffffff;
-  --surface-hover: #f5f4f0;
-  --border:        rgba(0,0,0,0.07);
-  --border-hi:     rgba(0,0,0,0.13);
-
-  --text1: #18182a;
-  --text2: #58587a;
-  --text3: #9898b8;
-
-  --accent:      #4f46e5;
-  --accent-hi:   #6366f1;
-  --accent-dim:  rgba(79,70,229,0.08);
-  --accent-bdr:  rgba(79,70,229,0.2);
-
-  --cyan:      #0891b2;
-  --cyan-dim:  rgba(8,145,178,0.08);
-  --green:     #059669;
-  --green-dim: rgba(5,150,105,0.08);
-  --amber:     #d97706;
-  --amber-dim: rgba(217,119,6,0.08);
-  --purple:    #7c3aed;
-  --purple-dim:rgba(124,58,237,0.08);
-  --slate:     #475569;
-  --slate-dim: rgba(71,85,105,0.08);
-
-  --shadow-sm: 0 1px 6px rgba(0,0,0,0.07);
-  --shadow-md: 0 4px 24px rgba(0,0,0,0.1);
-  --shadow-lg: 0 12px 48px rgba(0,0,0,0.15);
-}
-
-/* =========================================================
-   RESET & BASE
-========================================================= */
-*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-html{scroll-behavior:smooth}
-body{
-  font-family:'Inter',-apple-system,sans-serif;
-  background:var(--bg1);color:var(--text1);
-  line-height:1.7;overflow-x:hidden;
-  transition:background 0.4s ease,color 0.4s ease;
-}
-a{color:inherit;text-decoration:none}
-ul{list-style:none}
-img{display:block;max-width:100%}
-
-/* =========================================================
-   SCROLL REVEAL
-========================================================= */
-.reveal{opacity:0;transform:translateY(22px);transition:opacity var(--ts),transform var(--ts)}
-.reveal.on{opacity:1;transform:translateY(0)}
-.d1{transition-delay:.08s}.d2{transition-delay:.16s}.d3{transition-delay:.24s}
-.d4{transition-delay:.32s}.d5{transition-delay:.40s}
-
-/* =========================================================
-   LAYOUT HELPERS
-========================================================= */
-.container{max-width:1180px;margin:0 auto;padding:0 1.5rem}
-section{padding:96px 0}
-.eyebrow{font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:.13em;color:var(--accent);margin-bottom:.55rem}
-.sec-title{font-size:clamp(1.75rem,3vw,2.3rem);font-weight:800;letter-spacing:-.03em;color:var(--text1)}
-.sec-rule{width:30px;height:3px;background:var(--accent);border-radius:2px;margin:1rem 0 3rem}
-.sec-rule.center{margin:1rem auto 3rem}
-
-/* Shared buttons */
-.btn-fill{display:inline-flex;align-items:center;gap:7px;background:var(--accent);color:#fff;padding:11px 26px;border-radius:8px;font-weight:600;font-size:.88rem;border:none;cursor:pointer;transition:all var(--t)}
-.btn-fill:hover{background:var(--accent-hi);color:#fff;transform:translateY(-1px)}
-.btn-outline{display:inline-flex;align-items:center;gap:7px;background:transparent;color:var(--text1);padding:11px 26px;border-radius:8px;font-weight:600;font-size:.88rem;border:1px solid var(--border-hi);cursor:pointer;text-decoration:none;transition:all var(--t)}
-.btn-outline:hover{border-color:var(--accent);color:var(--accent);transform:translateY(-1px)}
-
-/* =========================================================
-   NAVBAR
-========================================================= */
-.site-nav{
-  position:fixed;top:0;left:0;right:0;z-index:900;
-  background:rgba(9,9,15,0.94);backdrop-filter:blur(18px);
-  border-bottom:1px solid var(--border);
-  padding:.6rem 0;
-  transition:background .4s ease,border-color .4s ease;
-}
-[data-theme="light"] .site-nav{background:rgba(245,244,240,0.95)}
-.nav-inner{max-width:1180px;margin:0 auto;padding:0 1.5rem;display:flex;align-items:center;gap:0}
-.nav-brand{font-weight:800;font-size:1rem;color:var(--text1);letter-spacing:-.02em;margin-right:auto}
-.nav-brand .dot{color:var(--accent)}
-.nav-links{display:flex;align-items:center;gap:0;margin:0}
-.nav-links li a{display:block;padding:.4rem .7rem;font-size:.84rem;font-weight:500;color:var(--text2);border-radius:6px;transition:color var(--t),background var(--t);position:relative}
-.nav-links li a:hover,.nav-links li a.active{color:var(--text1)}
-.nav-links li a.active::after{content:'';position:absolute;bottom:-2px;left:50%;transform:translateX(-50%);width:14px;height:2px;background:var(--accent);border-radius:1px}
-.nav-right{display:flex;align-items:center;gap:4px;margin-left:1rem}
-.nav-icon{width:33px;height:33px;display:flex;align-items:center;justify-content:center;border-radius:8px;color:var(--text2);font-size:1.05rem;border:1px solid transparent;transition:all var(--t)}
-.nav-icon:hover{color:var(--accent);background:var(--accent-dim);border-color:var(--accent-bdr)}
-.theme-btn{background:none;border:1px solid var(--border-hi);cursor:pointer}
-.theme-btn .i-sun{display:none}
-.theme-btn .i-moon{display:block}
-[data-theme="light"] .theme-btn .i-sun{display:block}
-[data-theme="light"] .theme-btn .i-moon{display:none}
-.nav-lang{font-size:.78rem;font-weight:600;border:1px solid var(--border-hi);color:var(--text2);background:none;padding:4px 10px;border-radius:100px;cursor:pointer;transition:all var(--t)}
-.nav-lang:hover{color:var(--accent);border-color:var(--accent-bdr)}
-.nav-hamburger{display:none;background:none;border:1px solid var(--border-hi);width:33px;height:33px;border-radius:8px;align-items:center;justify-content:center;color:var(--text2);cursor:pointer;margin-left:4px;font-size:1rem}
-
-/* =========================================================
-   HERO
-========================================================= */
-#hero{
-  min-height:100vh;display:flex;align-items:center;
-  padding-top:80px;background:var(--bg0);
-  position:relative;overflow:hidden;
-}
-#hero::before{
-  content:'';position:absolute;top:-25%;right:-12%;
-  width:60%;height:120%;pointer-events:none;
-  background:radial-gradient(ellipse,rgba(99,102,241,.07) 0%,transparent 65%);
-}
-#hero::after{
-  content:'';position:absolute;bottom:-20%;left:-8%;
-  width:40%;height:70%;pointer-events:none;
-  background:radial-gradient(ellipse,rgba(34,211,238,.04) 0%,transparent 65%);
-}
-[data-theme="light"] #hero::before{background:radial-gradient(ellipse,rgba(99,102,241,.06) 0%,transparent 60%)}
-[data-theme="light"] #hero::after{background:none}
-
-.hero-badge{
-  display:inline-flex;align-items:center;gap:7px;
-  background:var(--accent-dim);border:1px solid var(--accent-bdr);
-  color:var(--accent);padding:5px 14px;border-radius:100px;
-  font-size:.72rem;font-weight:700;letter-spacing:.09em;text-transform:uppercase;margin-bottom:1.5rem;
-}
-.hero-badge::before{content:'';width:7px;height:7px;border-radius:50%;background:var(--accent);animation:pdot 2s ease infinite}
-@keyframes pdot{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.4;transform:scale(.7)}}
-
-.hero-name{
-  font-size:clamp(2rem,5vw,3.75rem);font-weight:800;
-  line-height:1.12;letter-spacing:-.035em;color:var(--text1);margin-bottom:1.2rem;
-}
-.hero-name .grad{
-  background:linear-gradient(135deg,var(--accent),var(--cyan));
-  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
-}
-.tw-line{font-size:clamp(.95rem,2vw,1.15rem);color:var(--text2);margin-bottom:1.75rem;min-height:1.75rem}
-.tw-text{font-family:'Fira Code',monospace;font-weight:500;color:var(--cyan)}
-.tw-cur{display:inline-block;width:2px;height:1em;background:var(--cyan);margin-left:2px;vertical-align:middle;animation:blink 1s step-end infinite}
-@keyframes blink{0%,100%{opacity:1}50%{opacity:0}}
-
-.hero-desc{font-size:.96rem;color:var(--text2);line-height:1.88;max-width:500px;margin-bottom:2.25rem}
-.cta-row{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:2.5rem}
-
-.hero-stats{display:flex;gap:2rem;flex-wrap:wrap}
-.stat-num{font-size:1.4rem;font-weight:800;color:var(--text1);line-height:1}
-.stat-num b{color:var(--accent);font-weight:800}
-.stat-lbl{font-size:.68rem;font-weight:600;text-transform:uppercase;letter-spacing:.07em;color:var(--text2);margin-top:4px}
-
-/* Hero layout grid */
-.hero-grid{display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:center}
-.hero-photo-col{display:flex;justify-content:center}
-
-/* Photo ring */
-.photo-ring{position:relative;width:300px;height:300px;margin:0 auto}
-.photo-ring::before{
-  content:'';position:absolute;inset:-3px;border-radius:50%;
-  background:conic-gradient(var(--accent),var(--cyan),transparent 50%,var(--accent));
-  animation:spin 10s linear infinite;
-}
-@keyframes spin{from{transform:rotate(0)}to{transform:rotate(360deg)}}
-.photo-ring img{
-  position:relative;z-index:1;width:100%;height:100%;
-  border-radius:50%;object-fit:cover;border:4px solid var(--bg0);
-}
-[data-theme="light"] .photo-ring img{border-color:var(--bg0)}
-
-/* Worked-at strip */
-.worked-bar{border-top:1px solid var(--border);padding-top:2rem;margin-top:3rem}
-.worked-lbl{font-size:.68rem;font-weight:700;text-transform:uppercase;letter-spacing:.13em;color:var(--text2);text-align:center;margin-bottom:1.4rem}
-.logos-row{display:flex;align-items:center;justify-content:center;gap:48px;flex-wrap:wrap}
-.logos-row img{height:44px;object-fit:contain;opacity:.5;filter:grayscale(20%);transition:opacity var(--t),filter var(--t),transform var(--t)}
-[data-theme="light"] .logos-row img{filter:grayscale(80%);opacity:.4}
-.logos-row img:hover{opacity:1;filter:grayscale(0%);transform:scale(1.06)}
-
-/* =========================================================
-   ABOUT
-========================================================= */
-#about{background:var(--bg1)}
-.about-grid{display:grid;grid-template-columns:1fr 1.15fr;gap:5rem;align-items:start}
-.about-text p{color:var(--text2);font-size:.97rem;line-height:1.9;margin-bottom:1.2rem}
-.about-text p:last-child{margin-bottom:0}
-.about-text p strong{color:var(--text1);font-weight:600}
-
-/* =========================================================
-   PHILOSOPHY
-========================================================= */
-#philosophy{background:var(--bg0);position:relative;overflow:hidden}
-#philosophy::before{
-  content:'';position:absolute;top:-16%;right:-10%;width:46%;height:60%;
-  background:radial-gradient(circle,rgba(99,102,241,.12) 0%,transparent 68%);
-  pointer-events:none;
-}
-#philosophy::after{
-  content:'';position:absolute;bottom:-18%;left:-8%;width:34%;height:48%;
-  background:radial-gradient(circle,rgba(34,211,238,.08) 0%,transparent 72%);
-  pointer-events:none;
-}
-.philo-grid{position:relative;z-index:1;display:grid;grid-template-columns:.95fr 1.15fr;gap:2rem 2.25rem;align-items:start}
-.philo-intro p{color:var(--text2);font-size:.97rem;line-height:1.9;max-width:500px}
-.philo-quote{
-  margin-top:1.6rem;padding:1.35rem 1.4rem;border-radius:18px;
-  background:linear-gradient(180deg,rgba(99,102,241,.08),rgba(34,211,238,.04));
-  border:1px solid var(--accent-bdr);box-shadow:var(--shadow-sm);
-}
-[data-theme="light"] .philo-quote{background:linear-gradient(180deg,rgba(79,70,229,.06),rgba(8,145,178,.03))}
-.philo-qtop{display:flex;align-items:center;gap:10px;margin-bottom:.85rem}
-.philo-qicon{
-  width:36px;height:36px;border-radius:10px;display:flex;align-items:center;justify-content:center;
-  background:var(--accent-dim);color:var(--accent);font-size:1rem;flex-shrink:0;
-}
-.philo-qtitle{font-size:.8rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--text1)}
-.philo-quote p{color:var(--text2);font-size:.92rem;line-height:1.85}
-.philo-tags{display:flex;flex-wrap:wrap;gap:8px;margin-top:1rem}
-.philo-tag{
-  padding:4px 11px;border-radius:100px;font-size:.74rem;font-weight:600;
-  background:var(--surface);color:var(--text2);border:1px solid var(--border);
-}
-.philo-cards{display:grid;grid-template-columns:repeat(2,1fr);gap:1rem}
-.ph-card{
-  background:var(--surface);border:1px solid var(--border);border-radius:16px;
-  padding:1.35rem;transition:all var(--t);min-height:100%;
-}
-.ph-card:hover{border-color:var(--accent-bdr);transform:translateY(-2px);box-shadow:var(--shadow-md)}
-.ph-num{font-family:'Fira Code',monospace;font-size:.76rem;font-weight:600;color:var(--accent);margin-bottom:.7rem}
-.ph-card h3{font-size:1rem;font-weight:700;color:var(--text1);margin-bottom:.55rem;letter-spacing:-.02em}
-.ph-card p{color:var(--text2);font-size:.9rem;line-height:1.82}
-.philo-close{
-  grid-column:1 / -1;background:var(--surface-hover);border:1px solid var(--border);
-  border-radius:16px;padding:1rem 1.1rem;font-size:.92rem;font-weight:600;color:var(--text1);
-}
-
-/* =========================================================
-   EDUCATION
-========================================================= */
-#education{
-  background-image:url('Files/ASU.png');
-  background-repeat:no-repeat;background-position:center;background-size:68%;
-  position:relative;padding:96px 0;
-}
-#education::before{content:'';position:absolute;inset:0;z-index:1}
-[data-theme="dark"]  #education::before{background:rgba(7,7,12,.91)}
-[data-theme="light"] #education::before{background:rgba(245,244,240,.94)}
-#education .container{position:relative;z-index:2}
-
-.deg-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;margin-bottom:2.5rem}
-.deg-card{
-  background:var(--surface);border:1px solid var(--border);
-  border-radius:16px;padding:26px;
-  transition:all var(--t);
-}
-.deg-card:hover{border-color:var(--accent-bdr);transform:translateY(-3px);box-shadow:var(--shadow-md)}
-.deg-badge{
-  display:inline-block;padding:3px 13px;border-radius:100px;
-  font-size:.68rem;font-weight:700;letter-spacing:.07em;text-transform:uppercase;margin-bottom:1rem;
-}
-.db-ms{background:var(--accent-dim);color:var(--accent);border:1px solid var(--accent-bdr)}
-.db-bs{background:var(--green-dim);color:var(--green);border:1px solid rgba(52,211,153,.25)}
-[data-theme="light"] .db-bs{color:#059669;border-color:rgba(5,150,105,.25)}
-.deg-title{font-size:1.05rem;font-weight:700;color:var(--text1);margin-bottom:.4rem}
-.deg-meta{font-size:.86rem;color:var(--text2);line-height:1.6;margin-bottom:1rem}
-.gpa-chip{
-  display:inline-flex;align-items:center;gap:6px;
-  background:var(--accent-dim);border-radius:7px;
-  padding:4px 11px;font-size:.8rem;font-weight:600;color:var(--accent);margin-bottom:1rem;
-}
-.gpa-chip-g{background:var(--green-dim);color:var(--green)}
-[data-theme="light"] .gpa-chip-g{color:#059669}
-.deg-img{width:100%;border-radius:9px;object-fit:cover;margin-bottom:1.1rem;transition:transform var(--t),box-shadow var(--t);cursor:pointer}
-.deg-img:hover{transform:scale(1.02);box-shadow:var(--shadow-lg)}
-.btn-deg{
-  display:inline-flex;align-items:center;gap:6px;
-  padding:7px 17px;border-radius:7px;font-size:.82rem;font-weight:600;
-  background:var(--accent-dim);color:var(--accent);border:1px solid var(--accent-bdr);
-  transition:all var(--t);
-}
-.btn-deg:hover{background:var(--accent);color:#fff}
-.btn-deg-g{background:var(--green-dim);color:var(--green);border-color:rgba(52,211,153,.25)}
-[data-theme="light"] .btn-deg-g{color:#059669;border-color:rgba(5,150,105,.25)}
-.btn-deg-g:hover{background:var(--green);color:#fff}
-[data-theme="light"] .btn-deg-g:hover{background:#059669}
-
-.gpa-cta{
-  text-align:center;padding:2.25rem 2rem;
-  background:var(--accent-dim);border:1px solid var(--accent-bdr);border-radius:14px;
-}
-.gpa-cta p{font-size:1.1rem;font-weight:600;color:var(--text1);margin-bottom:1rem}
-.btn-learn{
-  background:transparent;color:var(--accent);
-  border:1px solid var(--accent-bdr);padding:9px 24px;border-radius:7px;
-  font-weight:600;font-size:.87rem;cursor:pointer;transition:all var(--t);
-}
-.btn-learn:hover{background:var(--accent);color:#fff}
-
-/* =========================================================
-   SKILLS
-========================================================= */
-#skills{background:var(--bg2)}
-.skills-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.2rem}
-.sk-card{
-  background:var(--surface);border:1px solid var(--border);
-  border-radius:14px;padding:22px;transition:all var(--t);
-}
-.sk-card:hover{border-color:var(--accent-bdr);transform:translateY(-2px);box-shadow:var(--shadow-md)}
-.sk-hdr{display:flex;align-items:center;gap:10px;margin-bottom:1rem}
-.sk-ico{width:36px;height:36px;border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:.95rem;flex-shrink:0}
-.si-v{background:rgba(99,102,241,.12);color:var(--accent)}
-.si-c{background:rgba(34,211,238,.1);color:var(--cyan)}
-.si-g{background:rgba(52,211,153,.1);color:var(--green)}
-.si-a{background:rgba(251,191,36,.1);color:var(--amber)}
-.si-m{background:rgba(167,139,250,.1);color:var(--purple)}
-.si-s{background:rgba(148,163,184,.1);color:var(--slate)}
-[data-theme="light"] .si-c{color:#0891b2}
-[data-theme="light"] .si-g{color:#059669}
-[data-theme="light"] .si-a{color:#d97706}
-[data-theme="light"] .si-m{color:#7c3aed}
-[data-theme="light"] .si-s{color:#475569}
-.sk-ttl{font-size:.88rem;font-weight:700;color:var(--text1)}
-.tag-row{display:flex;flex-wrap:wrap;gap:6px}
-.tag{padding:3px 11px;border-radius:100px;font-size:.75rem;font-weight:500}
-.tv{background:rgba(99,102,241,.08);color:var(--accent);border:1px solid rgba(99,102,241,.18)}
-.tc{background:var(--cyan-dim);color:var(--cyan);border:1px solid rgba(34,211,238,.18)}
-.tg{background:var(--green-dim);color:var(--green);border:1px solid rgba(52,211,153,.18)}
-.ta{background:var(--amber-dim);color:var(--amber);border:1px solid rgba(251,191,36,.18)}
-.tm{background:var(--purple-dim);color:var(--purple);border:1px solid rgba(167,139,250,.18)}
-.ts{background:var(--slate-dim);color:var(--slate);border:1px solid rgba(148,163,184,.18)}
-[data-theme="light"] .tc{color:#0891b2;border-color:rgba(8,145,178,.2)}
-[data-theme="light"] .tg{color:#059669;border-color:rgba(5,150,105,.2)}
-[data-theme="light"] .ta{color:#d97706;border-color:rgba(217,119,6,.2)}
-[data-theme="light"] .tm{color:#7c3aed;border-color:rgba(124,58,237,.2)}
-[data-theme="light"] .ts{color:#475569;border-color:rgba(71,85,105,.2)}
-
-/* =========================================================
-   EXPERIENCE
-========================================================= */
-#experience{background:var(--bg1)}
-.exp-card{
-  background:var(--surface);border:1px solid var(--border);
-  border-radius:16px;overflow:hidden;margin-bottom:1.5rem;
-  transition:border-color var(--t);
-}
-.exp-card:last-child{margin-bottom:0}
-.exp-card:hover{border-color:var(--border-hi)}
-.exp-head{
-  padding:20px 28px;
-  display:flex;align-items:baseline;justify-content:space-between;
-  border-bottom:1px solid var(--border);
-  flex-wrap:wrap;gap:.5rem;
-}
-.exp-co{font-size:1.3rem;font-weight:800;letter-spacing:-.025em;color:var(--text1)}
-.exp-dates{font-size:.8rem;color:var(--text2);font-family:'Fira Code',monospace}
-.exp-body{display:grid;grid-template-columns:175px 1fr 195px}
-.exp-col{padding:22px 24px}
-.exp-col+.exp-col{border-left:1px solid var(--border)}
-.col-lbl{font-size:.66rem;font-weight:700;text-transform:uppercase;letter-spacing:.11em;color:var(--text3);margin-bottom:.9rem}
-[data-theme="light"] .col-lbl{color:var(--text2)}
-.role-blk{margin-bottom:.9rem}
-.role-blk:last-child{margin-bottom:0}
-.role-title{font-size:.9rem;font-weight:700;color:var(--text1)}
-.role-period{font-size:.76rem;color:var(--accent);margin-top:2px;font-weight:500}
-.role-note{font-size:.72rem;color:var(--text2);margin-top:2px;font-style:italic}
-.exp-proj{margin-bottom:.9rem}
-.exp-proj:last-child{margin-bottom:0}
-.exp-pname{font-size:.87rem;font-weight:700;color:var(--text1);margin-bottom:2px}
-.exp-pdesc{font-size:.84rem;color:var(--text2);line-height:1.65}
-.exp-ul{padding:0}
-.exp-ul li{
-  font-size:.84rem;color:var(--text2);line-height:1.7;
-  margin-bottom:7px;padding-left:1.1rem;position:relative;
-}
-.exp-ul li::before{
-  content:'';position:absolute;left:0;top:.65em;
-  width:5px;height:5px;border-radius:50%;background:var(--accent);
-}
-.scope-tags{display:flex;flex-wrap:wrap;gap:6px}
-.stag{
-  padding:3px 10px;border-radius:100px;
-  font-size:.73rem;font-weight:500;
-  background:var(--surface-hover);color:var(--text2);border:1px solid var(--border);
-}
-.sec-nav-cue{display:flex;justify-content:center;margin-top:2.5rem}
-.sec-nav-btn{
-  display:inline-flex;align-items:center;gap:8px;
-  background:var(--surface);border:1px solid var(--border);
-  color:var(--text2);padding:9px 20px;border-radius:100px;
-  font-size:.8rem;font-weight:600;transition:all var(--t);
-}
-.sec-nav-btn:hover{border-color:var(--accent-bdr);color:var(--accent);background:var(--accent-dim)}
-
-/* =========================================================
-   PROJECTS
-========================================================= */
-#projects{background:var(--bg0);padding:96px 0}
-.proj-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem}
-.proj-card{
-  border-radius:14px;overflow:hidden;
-  background:var(--bg2);border:1px solid var(--border);
-  cursor:pointer;transition:all .35s ease;
-}
-.proj-card:hover{border-color:var(--accent-bdr);transform:translateY(-4px);box-shadow:var(--shadow-lg)}
-.proj-img-wrap{position:relative;overflow:hidden;aspect-ratio:16/9}
-.proj-img-wrap img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:opacity .55s ease}
-.proj-img-wrap .img1{opacity:1}
-.proj-img-wrap .img2{opacity:0}
-.proj-card:hover .img1{opacity:0}
-.proj-card:hover .img2{opacity:1}
-.proj-body{padding:18px 20px}
-.proj-tags-row{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:9px}
-.ptag{padding:3px 10px;border-radius:100px;font-size:.72rem;font-weight:500;background:var(--surface-hover);color:var(--text2);border:1px solid var(--border)}
-.proj-ttl{font-size:.97rem;font-weight:700;color:var(--text1);margin-bottom:5px;line-height:1.3}
-.proj-desc{font-size:.83rem;color:var(--text2);line-height:1.6}
-
-/* =========================================================
-   PROJECT MODAL
-========================================================= */
-.p-overlay{
-  position:fixed;inset:0;z-index:1000;
-  background:rgba(0,0,0,.78);backdrop-filter:blur(8px);
-  display:flex;align-items:center;justify-content:center;padding:1.5rem;
-  opacity:0;pointer-events:none;transition:opacity .3s ease;
-}
-.p-overlay.open{opacity:1;pointer-events:all}
-.p-modal{
-  background:var(--bg2);border:1px solid var(--border);
-  border-radius:20px;max-width:920px;width:100%;
-  max-height:90vh;overflow-y:auto;position:relative;
-  transform:translateY(18px) scale(.97);
-  transition:transform .3s ease;
-}
-.p-overlay.open .p-modal{transform:translateY(0) scale(1)}
-.p-modal-top{
-  position:sticky;top:0;z-index:5;
-  background:var(--bg2);border-bottom:1px solid var(--border);
-  padding:12px 16px;display:flex;justify-content:flex-end;
-}
-.p-close{
-  width:32px;height:32px;border-radius:8px;
-  background:var(--surface-hover);border:1px solid var(--border);
-  color:var(--text2);cursor:pointer;font-size:1rem;
-  display:flex;align-items:center;justify-content:center;transition:all var(--t);
-}
-.p-close:hover{background:var(--accent-dim);color:var(--accent);border-color:var(--accent-bdr)}
-.p-body{padding:28px 30px 32px}
-.p-hdr{margin-bottom:1.5rem}
-.p-title{font-size:1.5rem;font-weight:800;letter-spacing:-.025em;color:var(--text1)}
-.p-meta{font-size:.82rem;color:var(--text2);font-style:italic;margin-top:4px}
-.p-tagrow{display:flex;flex-wrap:wrap;gap:6px;margin-top:.75rem}
-.p-img-pair{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:1.75rem}
-.p-img-pair img,.p-img-single img{width:100%;border-radius:10px;object-fit:cover}
-.p-img-single{margin-bottom:1.75rem}
-.p-glbl{font-size:.68rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--text2);margin-bottom:.7rem}
-.p-gallery{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:1.75rem}
-.p-gallery img{width:100%;border-radius:8px;object-fit:cover;cursor:pointer;border:1px solid var(--border);transition:all var(--t)}
-.p-gallery img:hover{transform:scale(1.03);border-color:var(--accent-bdr)}
-.p-secttl{font-size:.68rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--text2);margin-bottom:.7rem}
-.p-bullets{list-style:none;padding:0;margin-bottom:1.5rem}
-.p-bullets li{font-size:.89rem;color:var(--text2);line-height:1.78;padding-left:1.2rem;position:relative;margin-bottom:8px}
-.p-bullets li::before{content:'';position:absolute;left:0;top:.65em;width:5px;height:5px;border-radius:50%;background:var(--accent)}
-.p-links{display:flex;gap:10px;flex-wrap:wrap}
-.p-lnk{
-  display:inline-flex;align-items:center;gap:7px;
-  padding:9px 20px;border-radius:8px;font-size:.84rem;font-weight:600;
-  background:var(--accent-dim);color:var(--accent);border:1px solid var(--accent-bdr);
-  transition:all var(--t);
-}
-.p-lnk:hover{background:var(--accent);color:#fff}
-
-/* =========================================================
-   GPA MODAL
-========================================================= */
-.gpa-overlay{
-  position:fixed;inset:0;z-index:1100;
-  background:rgba(0,0,0,.75);backdrop-filter:blur(6px);
-  display:flex;align-items:center;justify-content:center;padding:1.5rem;
-  opacity:0;pointer-events:none;transition:opacity .3s ease;
-}
-.gpa-overlay.open{opacity:1;pointer-events:all}
-.gpa-modal{
-  background:var(--bg2);border:1px solid var(--border);
-  border-radius:18px;padding:2.5rem;text-align:center;
-  max-width:400px;width:100%;
-  transform:translateY(14px) scale(.97);transition:transform .3s ease;
-}
-.gpa-overlay.open .gpa-modal{transform:translateY(0) scale(1)}
-.gpa-modal h4{font-size:1.15rem;font-weight:700;color:var(--text1);margin-bottom:1rem}
-.gpa-modal p{color:var(--text2);margin-bottom:.6rem;font-size:.96rem}
-.gpa-modal .eml{font-size:1.05rem;font-weight:700;color:var(--text1);margin-bottom:1.25rem}
-.gpa-cls{background:none;border:1px solid var(--border-hi);color:var(--text2);padding:7px 20px;border-radius:7px;cursor:pointer;font-size:.84rem;transition:all var(--t)}
-.gpa-cls:hover{border-color:var(--accent-bdr);color:var(--accent)}
-
-/* =========================================================
-   CONTACT
-========================================================= */
-#contact{background:var(--bg1)}
-.contact-wrap{text-align:center;max-width:520px;margin:0 auto}
-.email-box{display:inline-flex;align-items:center;gap:10px;background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:12px 20px;margin-bottom:.4rem}
-.email-txt{font-weight:600;color:var(--text1);font-size:.97rem}
-.copy-btn{background:var(--accent-dim);color:var(--accent);border:1px solid var(--accent-bdr);padding:5px 12px;border-radius:6px;font-size:.76rem;font-weight:600;cursor:pointer;display:inline-flex;align-items:center;gap:5px;transition:all var(--t)}
-.copy-btn:hover{background:var(--accent);color:#fff}
-.copy-ok{font-size:.78rem;font-weight:600;color:var(--green);min-height:1.3rem;visibility:hidden;margin-bottom:.4rem}
-[data-theme="light"] .copy-ok{color:#059669}
-.soc-row{display:flex;justify-content:center;gap:10px;margin-top:1.5rem}
-.soc-btn{width:48px;height:48px;border-radius:11px;background:var(--surface);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:1.25rem;color:var(--text2);transition:all var(--t)}
-.soc-btn:hover{background:var(--accent-dim);border-color:var(--accent-bdr);color:var(--accent);transform:translateY(-2px)}
-
-/* =========================================================
-   FOOTER
-========================================================= */
-footer{background:var(--bg0);border-top:1px solid var(--border);padding:20px 0;text-align:center;font-size:.78rem;color:var(--text2)}
-
-/* =========================================================
-   RESPONSIVE
-========================================================= */
-@media(max-width:1024px){
-  .about-grid{grid-template-columns:1fr;gap:2.5rem}
-  .philo-grid{grid-template-columns:1fr;gap:2.5rem}
-  .philo-intro p{max-width:none}
-  .skills-grid{grid-template-columns:repeat(2,1fr)}
-  .exp-body{grid-template-columns:1fr}
-  .exp-col+.exp-col{border-left:none;border-top:1px solid var(--border)}
-  .deg-grid{grid-template-columns:1fr}
-  .p-img-pair{grid-template-columns:1fr}
-  .p-gallery{grid-template-columns:repeat(2,1fr)}
-}
-@media(max-width:768px){
-  section{padding:72px 0}
-  /* Navbar */
-  .nav-links{display:none;flex-direction:column;position:absolute;top:100%;left:0;right:0;background:var(--bg0);border-bottom:1px solid var(--border);padding:.75rem 1.5rem}
-  .nav-links.open{display:flex}
-  .nav-hamburger{display:flex}
-  /* Hero: stack vertically, photo on top */
-  .hero-grid{grid-template-columns:1fr;gap:1.75rem;text-align:center}
-  .hero-photo-col{order:-1}
-  .photo-ring{width:200px;height:200px}
-  .hero-desc{max-width:100%}
-  .cta-row{justify-content:center}
-  .hero-stats{justify-content:center;gap:1.5rem}
-  .philo-cards{grid-template-columns:1fr}
-  /* Projects */
-  .proj-grid{grid-template-columns:1fr}
-  /* Logo strip */
-  .logos-row{gap:24px}
-  .logos-row img{height:34px}
-}
-@media(max-width:576px){
-  section{padding:56px 0}
-  .hero-name{font-size:2rem}
-  .photo-ring{width:170px;height:170px}
-  .skills-grid{grid-template-columns:1fr}
-  /* Hero stats: 2×2 grid */
-  .hero-stats{display:grid;grid-template-columns:repeat(2,1fr);gap:.85rem;text-align:center}
-  /* Modals */
-  .p-body{padding:16px}
-  .p-gallery{grid-template-columns:1fr 1fr}
-  .gpa-modal{padding:1.75rem 1.25rem}
-  /* Contact email */
-  .email-box{flex-direction:column;align-items:center;gap:8px}
-}
-
-/* img-contain: for logos/graphics that shouldn't be cropped */
-.img-contain{object-fit:contain !important;background:var(--bg3);padding:8px}
-[data-theme="light"] .img-contain{background:#e8e6e0}
-
-/* =========================================================
-   LIGHTBOX
-========================================================= */
-.lb-overlay{
-  position:fixed;inset:0;z-index:3000;
-  background:rgba(0,0,0,.92);backdrop-filter:blur(5px);
-  display:flex;align-items:center;justify-content:center;
-  opacity:0;pointer-events:none;transition:opacity .28s ease;
-}
-.lb-overlay.open{opacity:1;pointer-events:all}
-.lb-img-wrap{
-  max-width:88vw;max-height:85vh;
-  display:flex;align-items:center;justify-content:center;
-  position:relative;
-}
-.lb-img-wrap img{
-  max-width:88vw;max-height:85vh;
-  width:auto;height:auto;
-  object-fit:contain;border-radius:8px;
-  box-shadow:0 8px 48px rgba(0,0,0,.7);
-  display:block;
-}
-.lb-close{
-  position:fixed;top:1.1rem;right:1.1rem;
-  width:42px;height:42px;border-radius:10px;
-  background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.22);
-  color:#fff;cursor:pointer;font-size:1.1rem;
-  display:flex;align-items:center;justify-content:center;
-  transition:background .2s ease;z-index:1;
-}
-.lb-close:hover{background:rgba(255,255,255,.22)}
-.lb-btn{
-  position:fixed;top:50%;transform:translateY(-50%);
-  width:46px;height:46px;border-radius:50%;
-  background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.22);
-  color:#fff;cursor:pointer;font-size:1.6rem;
-  display:flex;align-items:center;justify-content:center;
-  transition:background .2s ease;
-  line-height:1;
-}
-.lb-btn:hover{background:rgba(255,255,255,.22)}
-.lb-prev{left:1.1rem}
-.lb-next{right:1.1rem}
-.lb-counter{
-  position:fixed;bottom:1.1rem;left:50%;transform:translateX(-50%);
-  color:rgba(255,255,255,.6);font-size:.8rem;font-weight:600;
-  background:rgba(0,0,0,.4);padding:4px 14px;border-radius:100px;
-}
-  </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Jisung Woo | Data Engineer + AI Systems Builder</title>
+  <meta name="description" content="Data engineer and AI systems builder creating enterprise data platforms, orchestration workflows, and trustworthy analytics experiences." />
+  <script>
+    (function () {
+      try {
+        var storedTheme = window.localStorage.getItem("portfolio-theme");
+        if (storedTheme === "light" || storedTheme === "dark") {
+          document.documentElement.setAttribute("data-theme", storedTheme);
+        }
+      } catch (error) {
+        console.warn("Theme preload skipped.", error);
+      }
+    })();
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Inter:wght@400;500;600;700;800&family=Noto+Sans+KR:wght@400;500;700;800&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet" />
+  <link rel="alternate" hreflang="en" href="./index.html" />
+  <link rel="alternate" hreflang="ko" href="./index_kr.html" />
+  <link rel="alternate" hreflang="x-default" href="./index.html" />
+  <link rel="stylesheet" href="./styles.css" />
 </head>
 <body>
-
-<!-- ===================== NAVBAR ===================== -->
-<nav class="site-nav">
-  <div class="nav-inner">
-    <a class="nav-brand" href="#hero">Jisung Woo<span class="dot">.</span></a>
-    <ul class="nav-links" id="navLinks">
-      <li><a href="#hero">Home</a></li>
-      <li><a href="#about">About</a></li>
-      <li><a href="#philosophy">Philosophy</a></li>
-      <li><a href="#education">Education</a></li>
-      <li><a href="#skills">Skills</a></li>
-      <li><a href="#experience">Experience</a></li>
-      <li><a href="#projects">Projects</a></li>
-      <li><a href="#contact">Contact</a></li>
-    </ul>
-    <div class="nav-right">
-      <a href="https://www.linkedin.com/in/jisung-woo/" target="_blank" class="nav-icon" title="LinkedIn"><i class="bi bi-linkedin"></i></a>
-      <a href="https://github.com/JisungWoo" target="_blank" class="nav-icon" title="GitHub"><i class="bi bi-github"></i></a>
-      <button class="nav-icon theme-btn" id="themeBtn" title="Toggle theme">
-        <i class="bi bi-moon-fill i-moon"></i>
-        <i class="bi bi-sun-fill i-sun"></i>
+  
+  <header class="site-header">
+    <div class="nav-shell">
+      <a class="brand-mark" href="#top" aria-label="Jisung Woo">Jisung Woo</a>
+      <button class="menu-toggle" aria-expanded="false" aria-controls="site-nav" aria-label="Open menu">
+        <span></span><span></span>
       </button>
-      <a href="index_kr.html" class="nav-lang">A&thinsp;|&thinsp;&#44032;</a>
-      <button class="nav-hamburger" id="hamburger" aria-label="Menu"><i class="bi bi-list"></i></button>
+      <nav id="site-nav" class="site-nav" aria-label="Primary navigation">
+        <div class="nav-links">
+          <a href="#about">About</a><a href="#philosophy">AI Philosophy</a><a href="#experience">Experience</a><a href="#projects">Projects</a><a href="#capabilities">Capabilities</a><a href="#education">Education</a><a href="#journey">Journey</a><a href="#contact">Contact</a>
+        </div>
+        <div class="nav-utilities">
+          <div class="nav-socials">
+            <a href="https://www.linkedin.com/in/jisung-woo/" class="social-icon-link" target="_blank" rel="noreferrer" aria-label="LinkedIn" title="LinkedIn"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M6.94 8.5V21H2.78V8.5h4.16ZM4.86 2C6.3 2 7.2 2.96 7.2 4.22c0 1.23-.88 2.22-2.3 2.22h-.03C3.49 6.44 2.6 5.45 2.6 4.22 2.6 2.96 3.52 2 4.86 2ZM21.4 13.3V21h-4.15v-7.21c0-1.81-.65-3.04-2.27-3.04-1.24 0-1.98.83-2.3 1.63-.12.29-.15.69-.15 1.09V21H8.38s.06-11.3 0-12.5h4.15v1.77c.55-.84 1.54-2.04 3.75-2.04 2.74 0 4.8 1.79 4.8 5.63Z"/></svg><span class="sr-only">LinkedIn</span></a><a href="https://github.com/JisungWoo" class="social-icon-link" target="_blank" rel="noreferrer" aria-label="GitHub" title="GitHub"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 .5C5.65.5.5 5.7.5 12.12c0 5.13 3.3 9.48 7.9 11.01.58.11.79-.25.79-.57 0-.28-.01-1.03-.02-2.02-3.21.7-3.89-1.56-3.89-1.56-.52-1.35-1.28-1.7-1.28-1.7-1.05-.73.08-.72.08-.72 1.16.08 1.77 1.21 1.77 1.21 1.03 1.78 2.71 1.27 3.37.97.1-.76.4-1.27.73-1.57-2.56-.3-5.25-1.3-5.25-5.77 0-1.27.45-2.3 1.18-3.12-.12-.3-.51-1.53.11-3.18 0 0 .97-.31 3.18 1.19a10.9 10.9 0 0 1 5.8 0c2.2-1.5 3.17-1.2 3.17-1.2.63 1.66.24 2.9.12 3.19.74.82 1.18 1.85 1.18 3.12 0 4.48-2.7 5.46-5.28 5.76.41.36.78 1.08.78 2.17 0 1.57-.01 2.83-.01 3.22 0 .32.21.69.8.57 4.6-1.53 7.89-5.88 7.89-11.01C23.5 5.7 18.35.5 12 .5Z"/></svg><span class="sr-only">GitHub</span></a>
+          </div>
+          <div class="theme-switch" role="group" aria-label="Theme">
+            <button type="button" class="theme-option is-active" data-set-theme="light" aria-pressed="true">Light</button>
+            <button type="button" class="theme-option" data-set-theme="dark" aria-pressed="false">Dark</button>
+          </div>
+          <a class="lang-pill" href="index_kr.html" hreflang="ko" lang="ko">KR</a>
+        </div>
+      </nav>
     </div>
-  </div>
-</nav>
-
-<!-- ===================== HERO ===================== -->
-<section id="hero">
-  <div class="container">
-    <div class="hero-grid">
-
-      <div class="reveal">
-        <div class="hero-badge">Available for Opportunities</div>
-        <h1 class="hero-name">
-          Hi, I'm <span class="grad">Jisung Woo</span><br>Data Engineer
-        </h1>
-        <div class="tw-line">
-          <span class="tw-text" id="tw"></span><span class="tw-cur"></span>
+  </header>
+  <main>
+    
+  <section id="top" class="hero-section">
+    <div class="hero-shell">
+      <div class="hero-copy reveal">
+        <p class="eyebrow">Open to opportunities</p>
+        <p class="role-line">Data Engineer + AI Systems Builder</p>
+        <h1 class="display-name">Jisung Woo</h1>
+        <p class="hero-thesis">Building data systems people can trust and AI systems people can actually use.</p>
+        <p class="hero-summary">I work at the intersection of enterprise data infrastructure, workflow automation, and AI orchestration - turning complex systems into tools that stay understandable under real-world pressure.</p>
+        <div class="hero-actions">
+          <a class="cta-primary" href="Files/JisungWoo_Resume.pdf" download>Download Resume</a>
+          <a class="cta-secondary" href="#philosophy">Read AI Philosophy</a>
         </div>
-        <p class="hero-desc">
-          Data Engineer with 4+ years building enterprise-scale data systems. Specializing in ETL/ELT pipelines, data warehousing, and workflow automation — with a growing focus on AI-integrated solutions that bridge data infrastructure with intelligent tooling.
-        </p>
-        <div class="cta-row">
-          <a href="Files/JisungWoo_Resume.pdf" download class="btn-fill"><i class="bi bi-download"></i>Download Resume</a>
-          <a href="#contact" class="btn-outline"><i class="bi bi-envelope"></i>Get in Touch</a>
-        </div>
-        <div class="hero-stats">
-          <div><div class="stat-num"><b>4</b>+ yrs</div><div class="stat-lbl">Experience</div></div>
-          <div><div class="stat-num"><b>9K</b>+</div><div class="stat-lbl">Snowflake Objects</div></div>
-          <div><div class="stat-num"><b>100K</b>+</div><div class="stat-lbl">Users Impacted</div></div>
-          <div><div class="stat-num"><b>4.0</b></div><div class="stat-lbl">Grad GPA</div></div>
+        <div class="metric-row">
+          
+            <div class="metric-chip">
+              <strong>4+</strong>
+              <span>Years in data engineering</span>
+            </div>
+            <div class="metric-chip">
+              <strong>9K+</strong>
+              <span>Snowflake objects managed</span>
+            </div>
+            <div class="metric-chip">
+              <strong>100K+</strong>
+              <span>Users impacted</span>
+            </div>
+            <div class="metric-chip">
+              <strong>4.0</strong>
+              <span>Graduate GPA</span>
+            </div>
         </div>
       </div>
-
-      <div class="hero-photo-col reveal d2">
-        <div class="photo-ring">
-          <img src="Files/Profile_Pic_Graduation.jpg" alt="Jisung Woo">
+      <div class="hero-visual reveal reveal-delay-2">
+        <figure class="portrait-stage" data-hero-stage>
+          <div class="portrait-frame">
+            <img src="Files/Profile_Pic_Graduation.jpg" alt="Portrait of Jisung Woo at Arizona State University." />
+          </div>
+          
+        </figure>
+        <div class="hero-tags">
+          <span>Snowflake EDW</span><span>AI orchestration</span><span>Column lineage</span><span>Systems thinking</span>
         </div>
       </div>
     </div>
-
-    <div class="worked-bar reveal d3">
-      <p class="worked-lbl">Professional Experience At</p>
-      <div class="logos-row">
-        <img src="Files/Honeywell.png" alt="Honeywell">
-        <img src="Files/ASUEP.png" alt="ASU Enterprise Partners">
-        <img src="Files/Oracle_Cerner.png" alt="Oracle Cerner">
+    <div class="brand-rail reveal reveal-delay-3">
+      <p class="rail-label">Worked at</p>
+      <div class="logo-track">
+        <div class="logo-item"><img src="Files/Honeywell.png" alt="Honeywell" /></div><div class="logo-item"><img src="Files/ASUEP.png" alt="ASU Enterprise Partners" /></div><div class="logo-item"><img src="Files/Oracle_Cerner.png" alt="Oracle Cerner" /></div>
       </div>
     </div>
-  </div>
-</section>
-
-<!-- ===================== ABOUT ===================== -->
-<section id="about">
-  <div class="container">
+  </section>
+    
+  <section id="about" class="about-section">
+    <div class="section-head reveal">
+      <p class="eyebrow">About Me</p>
+      <h2 class="section-title">Turning data complexity into clarity.</h2>
+    </div>
     <div class="about-grid">
-      <div class="reveal">
-        <p class="eyebrow">About Me</p>
-        <h2 class="sec-title">Turning data complexity into clarity.</h2>
-        <div class="sec-rule"></div>
-        <a href="Files/JisungWoo_Resume.pdf" download class="btn-fill" style="margin-top:.5rem"><i class="bi bi-file-earmark-person"></i>Download Resume</a>
+      <div class="about-copy reveal reveal-delay-1">
+        <p>I'm a Data Engineer who builds reliable, scalable data systems - and increasingly, AI-powered ones. At Honeywell, I engineer transformation logic across a Snowflake Enterprise Data Warehouse spanning 9,000+ objects, manage government-scale datasets under strict compliance, and coordinate offshore teams to deliver against tight deadlines. My stack spans Snowflake, Informatica, Control-M, SQL Server, and Python.</p><p>What sets me apart is how I'm bridging traditional data engineering with AI. I led an initiative to automate column-level lineage across our entire EDW using Snowflake's native LLM functions and Claude Opus - reaching roughly 80% accuracy on work that would have taken months manually. I've also prototyped internal data catalog tooling in React and started shaping a semantic layer and metadata governance direction for the warehouse.</p><p>My approach starts with the meaning behind the data, not just the mechanics of moving it. I care about structure, documentation, and building systems other people can understand, maintain, and trust. Whether it's enterprise pipelines or autonomous AI workflows, the standard is the same: precision with thoughtful communication.</p><p>Outside of work, I build multi-agent systems and portfolio experiments that let me test orchestration, review loops, and human-in-the-loop AI design in a practical way.</p>
       </div>
-      <div class="about-text reveal d2">
-        <p>I'm a Data Engineer who builds reliable, scalable data systems — and increasingly, <strong>AI-powered ones</strong>. At Honeywell, I engineer transformation logic across a Snowflake Enterprise Data Warehouse spanning 9,000+ objects, manage government-scale datasets under strict compliance, and coordinate offshore teams to deliver against tight deadlines. My stack spans <strong>Snowflake, Informatica, Control-M, SQL Server, and Python</strong>.</p>
-        <p>What sets me apart is how I'm <strong>bridging traditional data engineering with AI</strong>. I led an initiative to automate column-level lineage across our entire EDW using Snowflake's native LLM functions and Claude Opus — achieving 80% accuracy on a task that would have taken months manually. I've prototyped internal data catalog tooling in React, and I'm currently designing a semantic layer and metadata governance framework for the enterprise warehouse. <a href="Files/column_lineage_portfolio.html" target="_blank" style="color:var(--accent);font-weight:600;text-decoration:none;border-bottom:1px solid var(--accent-bdr);padding-bottom:1px;transition:border-color 0.2s">Read the technical deep dive →</a></p>
-        <p>My approach starts with <strong>the meaning behind the data</strong>, not just the mechanics of moving it. I care deeply about structure, documentation, and building solutions that others can understand, maintain, and trust. Whether it's enterprise pipelines or autonomous AI systems, the standard is the same: precision combined with thoughtful communication.</p>
-      </div>
+      <aside class="about-aside reveal reveal-delay-2">
+        <p class="aside-label">Current focus</p>
+        <div class="aside-tags">
+          <span>Snowflake EDW</span><span>AI orchestration</span><span>Column lineage</span><span>Systems thinking</span>
+        </div>
+        <div class="about-actions"><a href="Files/column_lineage_portfolio.html" class="link-chip">Technical deep dive</a><a href="Files/JisungWoo_Resume.pdf" class="link-chip" download>Resume</a></div>
+      </aside>
     </div>
-  </div>
-</section>
-
-<!-- ===================== PHILOSOPHY ===================== -->
-<section id="philosophy">
-  <div class="container">
-    <div class="philo-grid">
-      <div class="philo-intro reveal">
+  </section>
+    
+  <section id="philosophy" class="philosophy-section">
+    <div class="philosophy-grid">
+      <div class="section-head reveal">
         <p class="eyebrow">AI Philosophy</p>
-        <h2 class="sec-title">AI is most powerful when it is orchestrated, not merely queried.</h2>
-        <div class="sec-rule"></div>
-        <p>We are entering a world where the people who know how to use AI well will have outsized leverage. Most people, including highly capable engineers, still use it like a search engine: ask a question, get an answer, move on. What interests me is what happens when you architect the system around the model instead.</p>
-
-        <div class="philo-quote reveal d2">
-          <div class="philo-qtop">
-            <div class="philo-qicon"><i class="bi bi-music-note-beamed"></i></div>
-            <div class="philo-qtitle">The Piano Analogy</div>
-          </div>
-          <p>A Steinway is one of the finest instruments in the world, but if you hand it to someone who has never played, it's just expensive wood. AI is similar. The models are extraordinary. The rare skill is knowing how to actually play them: compose tasks, enforce guardrails, route between models, and turn raw capability into reliable outcomes.</p>
-          <div class="philo-tags">
-            <span class="philo-tag">Agents</span>
-            <span class="philo-tag">Guardrails</span>
-            <span class="philo-tag">Model Routing</span>
-            <span class="philo-tag">Human Validation</span>
-          </div>
+        <h2 class="section-title">AI is most powerful when it is orchestrated, not merely queried.</h2>
+        <p class="section-copy">We are entering a world where the people who know how to use AI well will have outsized leverage. Most people, including highly capable engineers, still use it like a search engine: ask a question, get an answer, move on. What interests me is what happens when you architect the system around the model instead.</p>
+        <div class="tag-row philosophy-tags">
+          <span>Agents</span><span>Guardrails</span><span>Model Routing</span><span>Human Validation</span>
         </div>
       </div>
-
-      <div class="philo-cards">
-        <article class="ph-card reveal d1">
-          <div class="ph-num">01</div>
+      <aside class="piano-panel reveal reveal-delay-1">
+        <p class="eyebrow">The Piano Analogy</p>
+        <p class="piano-copy">A Steinway is one of the finest instruments in the world, but if you hand it to someone who has never played, it's just expensive wood. AI is similar. The models are extraordinary. The rare skill is knowing how to actually play them: compose tasks, enforce guardrails, route between models, and turn raw capability into reliable outcomes.</p>
+      </aside>
+    </div>
+    <div class="principle-rail">
+      
+        <article class="principle-line reveal reveal-delay-1">
+          <span class="principle-number">01</span>
           <h3>AI Is Leverage</h3>
           <p>I believe effective AI use massively expands individual potential. Clear intent, structural thinking, and precise prompting now let small teams build systems that would have taken much larger teams years ago.</p>
         </article>
-
-        <article class="ph-card reveal d2">
-          <div class="ph-num">02</div>
-          <h3>Orchestration Matters</h3>
-          <p>In my personal time, I built and am actively upgrading an autonomous multi-agent development platform from scratch: an orchestrator, a lead engineer, and a QA reviewer working through a DEV → QA → PROD pipeline with human-in-the-loop validation gates. I'm interested in repeatable systems, not chatbot demos.</p>
+        <article class="principle-line reveal reveal-delay-2">
+          <span class="principle-number">02</span>
+          <h3>Orchestration Beats Prompting</h3>
+          <p>The prompt matters, but the bigger win comes from the workflow around it: state, routing, validation, fallbacks, and the way a system recovers when the first answer is not enough.</p>
         </article>
-
-        <article class="ph-card reveal d3">
-          <div class="ph-num">03</div>
-          <h3>Data Engineering Prepared Me For This</h3>
-          <p>My background is in data engineering rather than classical software engineering, so my edge is not just language-level fluency. It is workflow architecture, optimization, data integrity, and systems thinking at scale. Managing 9,000+ objects across a 7-layer transformation pipeline serving 100,000+ employees taught me how to make high-stakes systems dependable.</p>
+        <article class="principle-line reveal reveal-delay-3">
+          <span class="principle-number">03</span>
+          <h3>Human Judgment Is The Final Layer</h3>
+          <p>I do not see AI as a replacement for judgment. I see it as a force multiplier inside systems where accountability, review, and trust still belong to people.</p>
         </article>
-
-        <article class="ph-card reveal d4">
-          <div class="ph-num">04</div>
-          <h3>This Is the Craft I Chase</h3>
-          <p>This is not casual curiosity for me. I think about agent architecture on my commute, spend free time refining workflows and harnesses, and follow AI, prompt engineering, and orchestration relentlessly. It has even replaced most of the time I used to spend on video games because building these systems is simply more interesting to me now.</p>
+    </div>
+  </section>
+    
+  <section id="experience" class="experience-section">
+    <div class="section-head reveal">
+      <p class="eyebrow">Experience</p>
+      <h2 class="section-title">Enterprise systems, AI exploration, and delivery work that ships.</h2>
+      <p class="section-copy">I do my best work where the technical rigor is high, the stakeholder pressure is real, and the system still needs to stay legible.</p>
+    </div>
+    <div class="experience-list">
+      
+        <article class="experience-card reveal reveal-delay-1">
+          <div class="experience-top">
+            <div>
+              <p class="experience-company">Honeywell</p>
+              <h3>Data Engineer II</h3>
+            </div>
+            <div class="experience-meta">
+              <span>Aug 2024 - Present</span>
+              <span>Phoenix, AZ</span>
+            </div>
+          </div>
+          <p class="experience-summary">Enterprise warehouse development, AI-driven lineage automation, and cross-functional delivery inside a high-compliance environment.</p>
+          <div class="tag-row"><span>Snowflake</span><span>AI / LLM</span><span>Column lineage</span><span>React</span><span>SDLC</span></div>
+          <button class="accordion-toggle" type="button" aria-expanded="true">
+            <span>Close details</span>
+            <span aria-hidden="true">-</span>
+          </button>
+          <div class="accordion-panel">
+            <ul><li>Engineer SQL-based transformation logic across a Snowflake EDW supporting 100K+ employees and 9,000+ tables/views.</li><li>Built an AI-driven column lineage initiative using Snowflake native LLM functions and Claude Opus, reaching roughly 80% mapping accuracy and compressing months of manual documentation into weeks.</li><li>Prototyped an internal React lineage visualization tool to demonstrate the feasibility of in-house data catalog capabilities.</li><li>Coordinate delivery across a 10-person offshore team while serving as a technical liaison for business stakeholders and engineering partners.</li></ul>
+            <a class="inline-link" href="Files/column_lineage_portfolio.html" target="_blank" rel="noreferrer">Technical deep dive</a>
+          </div>
         </article>
-
-        <div class="philo-close reveal d5">I'm not drawn to AI as hype. I'm drawn to it as a new engineering medium, and I want to be exceptionally good at wielding it.</div>
+        <article class="experience-card reveal reveal-delay-2">
+          <div class="experience-top">
+            <div>
+              <p class="experience-company">ASU Enterprise Partners</p>
+              <h3>Data Engineer I</h3>
+            </div>
+            <div class="experience-meta">
+              <span>Mar 2022 - Jul 2024</span>
+              <span>Tempe, AZ</span>
+            </div>
+          </div>
+          <p class="experience-summary">Pipeline modernization, ETL/ELT automation, and warehouse integration across SQL Server, Azure, Salesforce, and Workday.</p>
+          <div class="tag-row"><span>SSIS</span><span>Azure Data Factory</span><span>SQL Server</span><span>Power BI</span><span>ETL / ELT</span></div>
+          <button class="accordion-toggle" type="button" aria-expanded="true">
+            <span>Close details</span>
+            <span aria-hidden="true">-</span>
+          </button>
+          <div class="accordion-panel">
+            <ul><li>Automated data loading workflows with SSIS and Azure Data Factory to remove manual steps and reduce data-loading errors.</li><li>Led migration of legacy SSIS jobs and stored procedures to Azure Data Factory, modernizing the pipeline architecture.</li><li>Built SQL Server procedures that automated Power BI refreshes and reduced heavy DAX dependence.</li><li>Designed ETL/ELT pipelines that integrated SQL Server, Salesforce, Workday, and Azure Blob Storage into the enterprise warehouse.</li></ul>
+            
+          </div>
+        </article>
+        <article class="experience-card reveal reveal-delay-3">
+          <div class="experience-top">
+            <div>
+              <p class="experience-company">Oracle Cerner</p>
+              <h3>Technical Solution Analyst</h3>
+            </div>
+            <div class="experience-meta">
+              <span>Feb 2021 - Mar 2022</span>
+              <span>Kansas City, MO</span>
+            </div>
+          </div>
+          <p class="experience-summary">Back-end investigation, SQL troubleshooting, client communication, and high-volume issue resolution inside healthcare systems.</p>
+          <div class="tag-row"><span>Oracle SQL</span><span>Data integrity</span><span>Log analysis</span><span>Healthcare</span><span>SLA</span></div>
+          <button class="accordion-toggle" type="button" aria-expanded="true">
+            <span>Close details</span>
+            <span aria-hidden="true">-</span>
+          </button>
+          <div class="accordion-panel">
+            <ul><li>Investigated and resolved front-end and back-end data issues using SQL, logs, and Oracle-based monitoring while sustaining 90%+ client satisfaction.</li><li>Worked across engineering and client teams to stabilize data flows and perform safe SQL updates for production systems.</li><li>Analyzed Oracle query plans and system logs to repair broken pipelines and improve transaction performance.</li><li>Handled 90-110 issues per month and supported 24/7 on-call healthcare operations.</li></ul>
+            
+          </div>
+        </article>
+    </div>
+  </section>
+    
+  <section id="projects" class="work-section">
+    <div class="section-head reveal">
+      <p class="eyebrow">Projects</p>
+      <h2 class="section-title">Projects shaped around real systems, not just polished screens.</h2>
+      <p class="section-copy">A few representative projects that show how I think about infrastructure, interfaces, and delivery.</p>
+    </div>
+    <div class="spotlight-list">
+      
+        <article class="project-spotlight signal  reveal reveal-delay-1">
+          <div class="project-copy">
+            <div class="tag-row"><span>Multi-agent systems</span><span>LLM</span><span>Operations UI</span></div>
+            <h3>AI Agent Orchestration Platform</h3>
+            <p class="project-meta">Personal project · 2026 - Present</p>
+            <p class="project-summary">An autonomous multi-agent workflow with execution state, approvals, dashboards, and guardrails for long-running development work.</p>
+            <p class="project-lead">I designed the planner-builder-reviewer structure, the execution state layer, and the operations surface so agent work could be resumed, audited, and improved instead of disappearing into chat history.</p>
+            <ul class="project-highlights"><li>File-first execution state for tasks, checkpoints, reviews, approvals, and daily memory.</li><li>Supabase-backed search and operations dashboard layered on top of local source-of-truth files.</li><li>Next.js dashboard rebuilt around live system data rather than mock states.</li></ul>
+            <div class="project-links"><button type="button" class="link-chip" data-open-project="ai">Open project details</button></div>
+          </div>
+        </article>
+        <article class="project-spotlight cyan is-reversed reveal reveal-delay-2">
+          <div class="project-copy">
+            <div class="tag-row"><span>Machine learning</span><span>YOLOv8</span><span>Video analytics</span></div>
+            <h3>MS-BA Capstone: Tennis Performance Analytics</h3>
+            <p class="project-meta">Arizona State University · 2024</p>
+            <p class="project-summary">A full-stack ML pipeline for extracting player insights from match video using YOLOv8, OpenCV, and Python.</p>
+            <p class="project-lead">The goal was to make player analysis faster, more repeatable, and much easier to operate at scale than manual review.</p>
+            <ul class="project-highlights"><li>Tracked ball speed and racket movement from match footage.</li><li>Automated CSV-based output for downstream analysis in Python and Jupyter.</li><li>Reduced analysis time across a 20,000+ match set by roughly 90%.</li></ul>
+            <div class="project-links"><button type="button" class="link-chip" data-open-project="capstone">Open project details</button><a href="Files/Performance Analytics - Tennis Video Analysis (2024 Capstone).pptx" class="link-chip" download>Download presentation</a></div>
+          </div>
+        </article>
+        <article class="project-spotlight amber  reveal reveal-delay-3">
+          <div class="project-copy">
+            <div class="tag-row"><span>Team leadership</span><span>HTML/CSS/JS</span><span>Student organization</span></div>
+            <h3>ASU Korean Student Association Website</h3>
+            <p class="project-meta">Arizona State University · 2020 - 2021</p>
+            <p class="project-summary">A custom website delivered by a 7-person team, with front-end leadership, milestone planning, and GitHub onboarding for sustainable maintenance.</p>
+            <p class="project-lead">This project mattered because it combined product delivery with team coordination: assigning work, mentoring contributors, and still shipping a responsive site.</p>
+            <ul class="project-highlights"><li>Co-led planning and delivery for a 7-person build team.</li><li>Owned front-end implementation in HTML, CSS, and JavaScript.</li><li>Introduced GitHub practices so the organization could keep iterating after launch.</li></ul>
+            <div class="project-links"><button type="button" class="link-chip" data-open-project="ksa">Open project details</button><a href="https://github.com/JisungWoo/ksa_website" class="link-chip" target="_blank" rel="noreferrer">View repository</a></div>
+          </div>
+        </article>
+    </div>
+    <div class="secondary-projects reveal">
+      <p class="archive-label">More projects</p>
+      <div class="secondary-project-grid">
+        
+          <article class="secondary-project-card reveal reveal-delay-1">
+            <div class="secondary-project-copy">
+              <div class="tag-row"><span>HTML/CSS/JS</span><span>GitHub Pages</span><span>Portfolio design</span></div>
+              <h3>Personal Portfolio Website</h3>
+              <p class="project-meta">Independent project · Jul 2024 - Present</p>
+              <p class="project-summary">A responsive personal portfolio with multiple deployed versions, AI-assisted iteration, and progressive visual refinement.</p>
+              <ul class="secondary-project-points"><li>Built a responsive personal portfolio and kept iterating on its information design, interaction design, and visual hierarchy.</li><li>Used AI-assisted editing to refine copy, layout direction, and iteration speed without losing authorship of the work.</li></ul>
+              <div class="project-links"><button type="button" class="link-chip" data-open-project="portfolio">Open project details</button><a href="https://jisungwoo.github.io/jisung_website/" class="link-chip" target="_blank" rel="noreferrer">Version 1</a><a href="https://jisungwoo.github.io/jisung_website_v2/" class="link-chip" target="_blank" rel="noreferrer">Version 2</a><a href="https://jisungwoo.github.io/jisung_website_v3/" class="link-chip" target="_blank" rel="noreferrer">Version 3</a></div>
+            </div>
+          </article>
+          <article class="secondary-project-card reveal reveal-delay-2">
+            <div class="secondary-project-copy">
+              <div class="tag-row"><span>Hackathon</span><span>1st place</span><span>HTML/CSS/JS</span></div>
+              <h3>PayPal Opportunity Hackathon - 1st Place</h3>
+              <p class="project-meta">Hackathon project · Oct 2016</p>
+              <p class="project-summary">A donor communication tool built for a local nonprofit in a 3-person team, resulting in a first-place finish.</p>
+              <ul class="secondary-project-points"><li>Collaborated in a 3-person team to build a web-based donor communication tool for Matthew's Crossing.</li><li>Created a custom HTML interface and automated email sender using HTML, CSS, and JavaScript.</li></ul>
+              <div class="project-links"><button type="button" class="link-chip" data-open-project="paypal">Open project details</button><a href="https://devpost.com/software/matthews-crossing-data-manager" class="link-chip" target="_blank" rel="noreferrer">View on Devpost</a></div>
+            </div>
+          </article>
       </div>
     </div>
-  </div>
-</section>
-
-<!-- ===================== EDUCATION ===================== -->
-<section id="education">
-  <div class="container">
-    <div class="text-center reveal" style="text-align:center">
-      <p class="eyebrow">Academic Background</p>
-      <h2 class="sec-title">Education</h2>
-      <div class="sec-rule center"></div>
+  </section>
+    
+  <section id="capabilities" class="capabilities-section">
+    <div class="section-head reveal">
+      <p class="eyebrow">Capabilities</p>
+      <h2 class="section-title">A capability stack shaped by both data engineering and AI workflow design.</h2>
+      <p class="section-copy">The mix is intentional: enterprise warehouse rigor, AI orchestration thinking, and enough front-end fluency to make systems inspectable.</p>
     </div>
-
-    <div class="deg-grid">
-      <div class="deg-card reveal d1">
-        <span class="deg-badge db-ms">Master's Degree</span>
-        <a href="Files/2024_MS-BA Diploma.pdf" target="_blank">
-          <img src="Files/2024_MS-BA_diploma.png" class="deg-img" alt="MS Diploma">
+    <div class="capability-columns">
+      
+        <article class="capability-column reveal reveal-delay-1">
+          <h3>Data Engineering</h3>
+          <ul><li>Snowflake</li><li>ETL / ELT pipelines</li><li>Data modeling</li><li>Data warehousing</li><li>SQL Server</li><li>SSIS</li><li>Informatica</li><li>Control-M</li></ul>
+        </article>
+        <article class="capability-column reveal reveal-delay-2">
+          <h3>AI Workflows</h3>
+          <ul><li>Multi-agent orchestration</li><li>Prompt engineering</li><li>LLM-assisted development</li><li>OpenAI Codex</li><li>Claude</li><li>Ollama</li><li>Column lineage automation</li></ul>
+        </article>
+        <article class="capability-column reveal reveal-delay-3">
+          <h3>Prototyping</h3>
+          <ul><li>React prototypes</li><li>Next.js dashboards</li><li>Supabase</li><li>HTML / CSS / JavaScript</li><li>GitHub</li><li>Workflow tooling</li></ul>
+        </article>
+        <article class="capability-column reveal reveal-delay-1">
+          <h3>Delivery</h3>
+          <ul><li>Technical stakeholder communication</li><li>Documentation</li><li>SDLC coordination</li><li>Offshore team collaboration</li><li>English (fluent)</li><li>Korean (fluent)</li></ul>
+        </article>
+    </div>
+  </section>
+    
+  <section id="education" class="education-section">
+    <div class="section-head reveal">
+      <p class="eyebrow">Education</p>
+      <h2 class="section-title">Degrees and formal training.</h2>
+      <p class="section-copy">The academic record matters. The operating change behind it matters even more.</p>
+    </div>
+    <div class="education-grid">
+      
+        <a class="education-card reveal reveal-delay-1" href="Files/2024_MS-BA Diploma.pdf" target="_blank" rel="noreferrer">
+          <div class="education-media">
+            <img src="Files/2024_MS-BA_diploma.png" alt="MS diploma" />
+          </div>
+          <div class="education-copy">
+            <p class="education-label">Master's Degree</p>
+            <h3>M.S. in Business Analytics</h3>
+            <p>W. P. Carey School of Business, Arizona State University</p>
+            <p>Aug 2023 - Dec 2024</p>
+            <strong>GPA 4.0 · Graduated with distinction</strong>
+          </div>
         </a>
-        <h3 class="deg-title">Master of Science – Business Analytics</h3>
-        <p class="deg-meta">W. P. Carey School of Business, Arizona State University<br>August 2023 – December 2024</p>
-        <div class="gpa-chip"><i class="bi bi-star-fill"></i>GPA: 4.0 &middot; Graduated with Distinction</div>
-        <a href="Files/2024_MS-BA Diploma.pdf" target="_blank" class="btn-deg"><i class="bi bi-file-earmark-pdf"></i>View Diploma</a>
-      </div>
-      <div class="deg-card reveal d2">
-        <span class="deg-badge db-bs">Bachelor's Degree</span>
-        <a href="Files/2020_CIS_Diploma.pdf" target="_blank">
-          <img src="Files/2020_CIS_diploma.png" class="deg-img" alt="BS Diploma">
+        <a class="education-card reveal reveal-delay-2" href="Files/2020_CIS_Diploma.pdf" target="_blank" rel="noreferrer">
+          <div class="education-media">
+            <img src="Files/2020_CIS_diploma.png" alt="BS diploma" />
+          </div>
+          <div class="education-copy">
+            <p class="education-label">Bachelor's Degree</p>
+            <h3>B.S. in Computer Information Systems</h3>
+            <p>W. P. Carey School of Business, Arizona State University</p>
+            <p>Aug 2016 - Dec 2020</p>
+            <strong>GPA 2.73</strong>
+          </div>
         </a>
-        <h3 class="deg-title">Bachelor of Science – Computer Information Systems</h3>
-        <p class="deg-meta">W. P. Carey School of Business, Arizona State University<br>August 2016 – December 2020</p>
-        <div class="gpa-chip gpa-chip-g"><i class="bi bi-mortarboard-fill"></i>GPA: 2.73</div>
-        <a href="Files/2020_CIS_Diploma.pdf" target="_blank" class="btn-deg btn-deg-g"><i class="bi bi-file-earmark-pdf"></i>View Diploma</a>
+    </div>
+  </section>
+    
+  <section id="journey" class="journey-section">
+    <div class="journey-shell">
+      <div class="section-head reveal">
+        <p class="eyebrow">Journey</p>
+        <h2 class="section-title">Curious how I went from a 2.73 to a 4.0?</h2>
+        <p class="section-copy">The short answer is not talent. It was recognizing a real weakness, then building a system strong enough to compensate for it.</p>
       </div>
+      <div class="journey-scoreboard reveal reveal-delay-1">
+        <div class="score-panel from">
+          <span>Undergraduate GPA</span>
+          <strong>2.73</strong>
+        </div>
+        <div class="score-arrow" aria-hidden="true">→</div>
+        <div class="score-panel to">
+          <span>Master's GPA</span>
+          <strong>4.0</strong>
+        </div>
+      </div>
+      <p class="journey-bridge reveal reveal-delay-2">Memory has never been my strongest trait. What changed was building a habit of writing down details clearly enough that both I and other people could follow the work without relying on recall alone.</p>
+      <div class="journey-grid">
+        
+          <article class="journey-step reveal reveal-delay-1">
+            <p class="journey-label">Then</p>
+            <h3>Relying too much on memory</h3>
+            <p>I have never had especially strong recall, so when I relied on memory alone it was easy to lose details, context, and continuity.</p>
+          </article>
+          <article class="journey-step reveal reveal-delay-2">
+            <p class="journey-label">Shift</p>
+            <h3>Turning notes into a real system</h3>
+            <p>To compensate, I started taking detailed notes and organizing them carefully enough that someone else could understand what I had done, why it mattered, and what came next.</p>
+          </article>
+          <article class="journey-step reveal reveal-delay-3">
+            <p class="journey-label">Now</p>
+            <h3>A professional strength</h3>
+            <p>That habit now directly helps me at work. Clear documentation, organized context, and handoff-ready notes have become part of how I build reliable systems and collaborate well with others.</p>
+          </article>
+      </div>
+      <a class="cta-secondary journey-action reveal reveal-delay-3" href="#contact">Ask me about it</a>
     </div>
-
-    <div class="gpa-cta reveal d3">
-      <p>Curious how I went from a GPA of 2.73 to a 4.0?</p>
-      <button class="btn-learn" id="gpaBtn">Learn More</button>
+  </section>
+    
+  <section id="contact" class="contact-section">
+    <div class="contact-card reveal">
+      <p class="eyebrow">Contact</p>
+      <h2 class="section-title">Let's talk about data engineering, AI platforms, or the systems in between.</h2>
+      <p class="section-copy">Open to opportunities where reliable data foundations and thoughtful AI integration both matter.</p>
+      <div class="email-shell">
+        <span class="email-address">jisungwoo9@gmail.com</span>
+        <button type="button" class="copy-button" data-copy-email>Copy email</button>
+      </div>
+      <p class="copy-status" aria-live="polite">Copied to clipboard</p>
+      <div class="contact-links contact-socials"><a href="https://www.linkedin.com/in/jisung-woo/" class="social-chip" target="_blank" rel="noreferrer" aria-label="LinkedIn" title="LinkedIn"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M6.94 8.5V21H2.78V8.5h4.16ZM4.86 2C6.3 2 7.2 2.96 7.2 4.22c0 1.23-.88 2.22-2.3 2.22h-.03C3.49 6.44 2.6 5.45 2.6 4.22 2.6 2.96 3.52 2 4.86 2ZM21.4 13.3V21h-4.15v-7.21c0-1.81-.65-3.04-2.27-3.04-1.24 0-1.98.83-2.3 1.63-.12.29-.15.69-.15 1.09V21H8.38s.06-11.3 0-12.5h4.15v1.77c.55-.84 1.54-2.04 3.75-2.04 2.74 0 4.8 1.79 4.8 5.63Z"/></svg><span>LinkedIn</span></a><a href="https://github.com/JisungWoo" class="social-chip" target="_blank" rel="noreferrer" aria-label="GitHub" title="GitHub"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 .5C5.65.5.5 5.7.5 12.12c0 5.13 3.3 9.48 7.9 11.01.58.11.79-.25.79-.57 0-.28-.01-1.03-.02-2.02-3.21.7-3.89-1.56-3.89-1.56-.52-1.35-1.28-1.7-1.28-1.7-1.05-.73.08-.72.08-.72 1.16.08 1.77 1.21 1.77 1.21 1.03 1.78 2.71 1.27 3.37.97.1-.76.4-1.27.73-1.57-2.56-.3-5.25-1.3-5.25-5.77 0-1.27.45-2.3 1.18-3.12-.12-.3-.51-1.53.11-3.18 0 0 .97-.31 3.18 1.19a10.9 10.9 0 0 1 5.8 0c2.2-1.5 3.17-1.2 3.17-1.2.63 1.66.24 2.9.12 3.19.74.82 1.18 1.85 1.18 3.12 0 4.48-2.7 5.46-5.28 5.76.41.36.78 1.08.78 2.17 0 1.57-.01 2.83-.01 3.22 0 .32.21.69.8.57 4.6-1.53 7.89-5.88 7.89-11.01C23.5 5.7 18.35.5 12 .5Z"/></svg><span>GitHub</span></a><a href="Files/JisungWoo_Resume.pdf" class="social-chip" download aria-label="Resume" title="Resume"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M6 2h8l4 4v16H6V2Zm8 1.5V7h3.5L14 3.5ZM8.5 10h7v1.5h-7V10Zm0 3h7v1.5h-7V13Zm0 3h5v1.5h-5V16Z"/></svg><span>Resume</span></a></div>
     </div>
+  </section>
+  </main>
+  
+  <footer class="site-footer">
+    <p>Built as a bilingual portfolio shaped around systems thinking, clear writing, and intentional motion.</p>
+    <small>&copy; 2026 Jisung Woo</small>
+  </footer>
+  <div class="modal-layer" hidden>
+    <div class="modal-backdrop" data-close-modal></div>
+    <section class="project-modal" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+      <button class="modal-close" type="button" data-close-modal aria-label="Close">&times;</button>
+      <div class="modal-scroll">
+        <div class="modal-content"></div>
+      </div>
+    </section>
   </div>
-</section>
-
-<!-- ===================== SKILLS ===================== -->
-<section id="skills">
-  <div class="container">
-    <div class="reveal" style="text-align:center">
-      <p class="eyebrow">Technical Proficiency</p>
-      <h2 class="sec-title">Skills</h2>
-      <div class="sec-rule center"></div>
-    </div>
-    <div class="skills-grid">
-      <div class="sk-card reveal d1">
-        <div class="sk-hdr"><div class="sk-ico si-v"><i class="bi bi-robot"></i></div><span class="sk-ttl">AI &amp; LLM</span></div>
-        <div class="tag-row">
-          <span class="tag tv">Multi-Agent Orchestration</span><span class="tag tv">Prompt Engineering</span><span class="tag tv">LLM-Assisted Development</span><span class="tag tv">Claude</span><span class="tag tv">GitHub Copilot</span><span class="tag tv">OpenAI Codex</span><span class="tag tv">Ollama</span>
-        </div>
-      </div>
-      <div class="sk-card reveal d2">
-        <div class="sk-hdr"><div class="sk-ico si-c"><i class="bi bi-diagram-3-fill"></i></div><span class="sk-ttl">Data Engineering</span></div>
-        <div class="tag-row">
-          <span class="tag tc">Snowflake</span><span class="tag tc">ETL / ELT</span><span class="tag tc">Data Modeling</span><span class="tag tc">Data Warehousing</span><span class="tag tc">SSIS</span><span class="tag tc">Informatica</span><span class="tag tc">Control-M</span><span class="tag tc">SQL Server</span><span class="tag tc">Power BI</span>
-        </div>
-      </div>
-      <div class="sk-card reveal d3">
-        <div class="sk-hdr"><div class="sk-ico si-g"><i class="bi bi-code-slash"></i></div><span class="sk-ttl">Programming</span></div>
-        <div class="tag-row">
-          <span class="tag tg">SQL</span><span class="tag tg">Python</span><span class="tag tg">JavaScript</span><span class="tag tg">HTML / CSS</span><span class="tag tg">Linux / Bash</span>
-        </div>
-      </div>
-      <div class="sk-card reveal d1">
-        <div class="sk-hdr"><div class="sk-ico si-a"><i class="bi bi-cloud-fill"></i></div><span class="sk-ttl">Platforms &amp; Tools</span></div>
-        <div class="tag-row">
-          <span class="tag ta">Azure</span><span class="tag ta">Azure Data Factory</span><span class="tag ta">Supabase</span><span class="tag ta">Salesforce</span><span class="tag ta">GitHub</span><span class="tag ta">React</span>
-        </div>
-      </div>
-      <div class="sk-card reveal d2">
-        <div class="sk-hdr"><div class="sk-ico si-m"><i class="bi bi-gear-fill"></i></div><span class="sk-ttl">Technical Expertise</span></div>
-        <div class="tag-row">
-          <span class="tag tm">Column Lineage</span><span class="tag tm">Data Automation</span><span class="tag tm">CI/CD Integration</span><span class="tag tm">Data Visualization</span><span class="tag tm">Semantic Layer Design</span><span class="tag tm">Full SDLC</span>
-        </div>
-      </div>
-      <div class="sk-card reveal d3">
-        <div class="sk-hdr"><div class="sk-ico si-s"><i class="bi bi-translate"></i></div><span class="sk-ttl">Spoken Languages</span></div>
-        <div class="tag-row">
-          <span class="tag ts">English (Fluent)</span><span class="tag ts">Korean (Fluent)</span>
-        </div>
-      </div>
-    </div>
+  <div class="lightbox-layer" hidden>
+    <div class="modal-backdrop" data-close-lightbox></div>
+    <section class="lightbox" role="dialog" aria-modal="true" aria-label="View screenshots">
+      <button class="modal-close" type="button" data-close-lightbox aria-label="Close">&times;</button>
+      <button class="lightbox-nav prev" type="button" data-lightbox-step="-1" aria-label="Previous image">&#8249;</button>
+      <figure>
+        <img src="" alt="Screenshot" />
+        <figcaption></figcaption>
+      </figure>
+      <button class="lightbox-nav next" type="button" data-lightbox-step="1" aria-label="Next image">&#8250;</button>
+    </section>
   </div>
-</section>
-
-<!-- ===================== EXPERIENCE ===================== -->
-<section id="experience">
-  <div class="container">
-    <div class="reveal">
-      <p class="eyebrow">Career Timeline</p>
-      <h2 class="sec-title">Experience</h2>
-      <div class="sec-rule"></div>
-    </div>
-
-    <!-- Honeywell -->
-    <div class="exp-card reveal">
-      <div class="exp-head">
-        <span class="exp-co">Honeywell</span>
-        <span class="exp-dates">Aug 2024 – Present</span>
-      </div>
-      <div class="exp-body">
-        <div class="exp-col">
-          <div class="col-lbl">Role</div>
-          <div class="role-blk">
-            <div class="role-title">Data Engineer II</div>
-            <div class="role-period">Aug 2024 – Present</div>
-            <div class="role-note">Phoenix, AZ</div>
-          </div>
-        </div>
-        <div class="exp-col">
-          <div class="col-lbl">Key Projects</div>
-          <div class="exp-proj">
-            <div class="exp-pname">Snowflake EDW &amp; Govt. Data</div>
-            <div class="exp-pdesc">Engineer and maintain SQL-based transformation logic across a Snowflake Enterprise Data Warehouse serving 100K+ employees, managing 9,000+ tables/views and processing 10M+ row government datasets under strict compliance requirements.</div>
-          </div>
-          <div class="exp-proj">
-            <div class="exp-pname">AI-Driven Column Lineage &nbsp;<a href="Files/column_lineage_portfolio.html" target="_blank" style="font-size:.72rem;font-weight:600;color:var(--accent);border:1px solid var(--accent-bdr);padding:2px 9px;border-radius:100px;text-decoration:none;vertical-align:middle;transition:all 0.2s" onmouseover="this.style.background='var(--accent)';this.style.color='#fff'" onmouseout="this.style.background='';this.style.color='var(--accent)'">Deep Dive →</a></div>
-            <div class="exp-pdesc">Spearheaded an AI-driven column lineage initiative across 9,000+ Snowflake objects by combining Snowflake's native LLM functions with Claude Opus 4.6, achieving 80% accuracy on automated column-level lineage mapping — reducing what would have been months of manual documentation to weeks.</div>
-          </div>
-          <div class="exp-proj">
-            <div class="exp-pname">Data Lineage Visualization Tool</div>
-            <div class="exp-pdesc">Architected and prototyped an internal data lineage visualization tool using React, delivering an Atlan-like interactive flow diagram demonstrating the feasibility of in-house data catalog tooling for enterprise leadership.</div>
-          </div>
-          <div class="exp-proj">
-            <div class="exp-pname">Cross-functional Delivery &amp; SDLC</div>
-            <div class="exp-pdesc">Develop, validate, and deploy SQL definitions coordinating with a 10-person offshore team across the full SDLC. Serve as the primary technical liaison between business clients and engineering — communicating directly with directors on deliverables, timelines, and data quality.</div>
-          </div>
-        </div>
-        <div class="exp-col">
-          <div class="col-lbl">Scope</div>
-          <div class="scope-tags">
-            <span class="stag">Snowflake</span><span class="stag">SQL / T-SQL</span><span class="stag">AI / LLM</span><span class="stag">Column Lineage</span><span class="stag">React</span><span class="stag">Data Warehousing</span><span class="stag">Compliance</span><span class="stag">SDLC</span>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- ASU Enterprise Partners — bullets preserved verbatim -->
-    <div class="exp-card reveal d1">
-      <div class="exp-head">
-        <span class="exp-co">ASU Enterprise Partners</span>
-        <span class="exp-dates">Mar 2022 – Jul 2024</span>
-      </div>
-      <div class="exp-body">
-        <div class="exp-col">
-          <div class="col-lbl">Role</div>
-          <div class="role-blk">
-            <div class="role-title">Data Engineer I</div>
-            <div class="role-period">Mar 2022 – Jul 2024</div>
-            <div class="role-note">Tempe, AZ</div>
-          </div>
-        </div>
-        <div class="exp-col">
-          <div class="col-lbl">Key Projects</div>
-          <ul class="exp-ul">
-            <li>Automated data loading workflows using SSIS and Azure Data Factory, eliminating manual data loading and human error by establishing secure integration with Azure Blob Storage.</li>
-            <li>Led successful migration of legacy SSIS jobs and SQL stored procedures to Azure Data Factory, modernizing pipeline architecture.</li>
-            <li>Designed and deployed data deduplication routines to ensure consistency and quality across enterprise systems.</li>
-            <li>Built and managed SQL Server stored procedures that automated Power BI refreshes, reducing reliance on complex DAX and improving report performance.</li>
-            <li>Engineered and optimized ETL/ELT pipelines that integrated SQL Server, Salesforce, Workday, and Azure Blob Storage into the enterprise data warehouse.</li>
-            <li>Transformed raw datasets into reporting-ready models, improving business insights and enabling robust dashboarding.</li>
-            <li>Developed reusable SSIS components for efficient job scheduling and consistent metadata management.</li>
-            <li>Supported analytics through advanced data modeling and staging processes in SQL Server and Azure environments.</li>
-            <li>Maintained scalable data integrations between systems, ensuring accuracy and synchronization across platforms.</li>
-          </ul>
-        </div>
-        <div class="exp-col">
-          <div class="col-lbl">Scope</div>
-          <div class="scope-tags">
-            <span class="stag">SSIS</span><span class="stag">Azure Data Factory</span><span class="stag">SQL Server</span><span class="stag">Power BI</span><span class="stag">ETL / ELT</span><span class="stag">Azure Blob Storage</span><span class="stag">Salesforce</span><span class="stag">Workday</span>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Oracle Cerner — bullets preserved verbatim -->
-    <div class="exp-card reveal d2">
-      <div class="exp-head">
-        <span class="exp-co">Oracle – Cerner Corporation</span>
-        <span class="exp-dates">Feb 2021 – Mar 2022</span>
-      </div>
-      <div class="exp-body">
-        <div class="exp-col">
-          <div class="col-lbl">Role</div>
-          <div class="role-blk">
-            <div class="role-title">Technical Solution Analyst</div>
-            <div class="role-period">Feb 2021 – Mar 2022</div>
-            <div class="role-note">Kansas City, MO</div>
-          </div>
-        </div>
-        <div class="exp-col">
-          <div class="col-lbl">Key Projects</div>
-          <ul class="exp-ul">
-            <li>Investigated and resolved complex front-end and backend data issues across enterprise applications using SQL, log analysis, and proactive Oracle-based monitoring—maintaining 90%+ client satisfaction while meeting SLAs.</li>
-            <li>Collaborated cross-functionally to troubleshoot data integrity problems, perform safe SQL updates, and stabilize data flows across systems and teams.</li>
-            <li>Led investigations for Oracle-based Order Management applications with SQL, application logs, and end-user shadowing.</li>
-            <li>Identified bad data in remote databases using Oracle SQL-based validations and monitoring scripts.</li>
-            <li>Analyzed Oracle query execution plans and system logs to fix broken pipelines and optimize transactions.</li>
-            <li>Acted as a liaison between engineering teams and clients, translating technical findings into actionable resolutions.</li>
-            <li>Supported high-volume issue queues (90–110 monthly tickets) and provided critical 24/7 on-call support for healthcare systems.</li>
-          </ul>
-        </div>
-        <div class="exp-col">
-          <div class="col-lbl">Scope</div>
-          <div class="scope-tags">
-            <span class="stag">Oracle SQL</span><span class="stag">Data Integrity</span><span class="stag">Log Analysis</span><span class="stag">Technical Support</span><span class="stag">Healthcare</span><span class="stag">SLA Management</span>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="sec-nav-cue reveal">
-      <a href="#projects" class="sec-nav-btn">
-        <i class="bi bi-grid-3x3-gap-fill"></i> View Projects <i class="bi bi-arrow-down"></i>
-      </a>
-    </div>
-  </div>
-</section>
-
-<!-- ===================== PROJECTS ===================== -->
-<section id="projects">
-  <div class="container">
-    <div class="reveal">
-      <p class="eyebrow">Selected Work</p>
-      <h2 class="sec-title" style="color:var(--text1)">Featured Projects</h2>
-      <div class="sec-rule"></div>
-    </div>
-    <div class="proj-grid" id="projGrid">
-      <!-- Cards injected by JS -->
-    </div>
-  </div>
-</section>
-
-<!-- ===================== CONTACT ===================== -->
-<section id="contact">
-  <div class="container">
-    <div class="contact-wrap reveal">
-      <p class="eyebrow" style="text-align:center">Let's Talk</p>
-      <h2 class="sec-title" style="text-align:center">Contact Me</h2>
-      <div class="sec-rule center"></div>
-      <p style="color:var(--text2);margin-bottom:2rem;font-size:.96rem;text-align:center">Open to new opportunities, collaborations, and conversations.</p>
-      <div style="text-align:center">
-        <div class="email-box">
-          <span class="email-txt" id="emailTxt">jisungwoo9@gmail.com</span>
-          <button class="copy-btn" onclick="copyEmail()"><i class="bi bi-clipboard"></i>Copy</button>
-        </div>
-        <div class="copy-ok" id="copyOk">&#x2713; Copied to clipboard</div>
-      </div>
-      <div class="soc-row">
-        <a href="https://www.linkedin.com/in/jisung-woo/" target="_blank" class="soc-btn" title="LinkedIn"><i class="bi bi-linkedin"></i></a>
-        <a href="https://github.com/JisungWoo" target="_blank" class="soc-btn" title="GitHub"><i class="bi bi-github"></i></a>
-        <a href="Files/JisungWoo_Resume.pdf" download class="soc-btn" title="Resume"><i class="bi bi-file-earmark-person"></i></a>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ===================== FOOTER ===================== -->
-<footer>
-  <div class="container">
-    <small>&copy; 2026 Jisung Woo &middot; All rights reserved.</small>
-  </div>
-</footer>
-
-<!-- ===================== LIGHTBOX ===================== -->
-<div class="lb-overlay" id="lb">
-  <button class="lb-close" onclick="lbClose()"><i class="bi bi-x-lg"></i></button>
-  <button class="lb-btn lb-prev" onclick="lbStep(-1)">&#8249;</button>
-  <div class="lb-img-wrap">
-    <img id="lbImg" src="" alt="screenshot">
-  </div>
-  <button class="lb-btn lb-next" onclick="lbStep(1)">&#8250;</button>
-  <div class="lb-counter" id="lbCounter"></div>
-</div>
-
-<!-- ===================== GPA MODAL ===================== -->
-<div class="gpa-overlay" id="gpaOverlay">
-  <div class="gpa-modal">
-    <h4>Let's connect and talk! &#x2709;</h4>
-    <p>To learn more about me, reach out at:</p>
-    <p class="eml">jisungwoo9@gmail.com</p>
-    <button class="gpa-cls" onclick="closeGpa()">Close</button>
-  </div>
-</div>
-
-<!-- ===================== PROJECT MODAL ===================== -->
-<div class="p-overlay" id="pOverlay">
-  <div class="p-modal" id="pModal">
-    <div class="p-modal-top">
-      <button class="p-close" onclick="closeProj()"><i class="bi bi-x-lg"></i></button>
-    </div>
-    <div class="p-body" id="pBody"></div>
-  </div>
-</div>
-
-<!-- ===================== SCRIPTS ===================== -->
-<script>
-/* ---- Theme toggle ---- */
-const html = document.documentElement;
-const themeBtn = document.getElementById('themeBtn');
-const saved = localStorage.getItem('theme') || 'dark';
-html.setAttribute('data-theme', saved);
-themeBtn.addEventListener('click', () => {
-  const next = html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
-  html.setAttribute('data-theme', next);
-  localStorage.setItem('theme', next);
-});
-
-/* ---- Hamburger ---- */
-document.getElementById('hamburger').addEventListener('click', () => {
-  document.getElementById('navLinks').classList.toggle('open');
-});
-
-/* ---- Typewriter ---- */
-const phrases = [
-  'Snowflake Data Engineer',
-  'ETL & ELT Pipeline Architect',
-  'AI / LLM Integration Builder',
-  'Enterprise Data Warehouse Engineer',
-  'Multi-Agent Systems Developer',
-];
-let pi=0,ci=0,del=false;
-const tw=document.getElementById('tw');
-function tick(){
-  const p=phrases[pi];
-  if(del){tw.textContent=p.slice(0,--ci)}else{tw.textContent=p.slice(0,++ci)}
-  let w=del?45:75;
-  if(!del&&ci===p.length){w=2200;del=true}
-  else if(del&&ci===0){del=false;pi=(pi+1)%phrases.length;w=380}
-  setTimeout(tick,w);
-}
-tick();
-
-/* ---- Scroll reveal ---- */
-const obs = new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting)e.target.classList.add('on')})},{threshold:.1,rootMargin:'0px 0px -30px 0px'});
-document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
-
-/* ---- Active nav ---- */
-const secs=document.querySelectorAll('section[id]');
-const nls=document.querySelectorAll('.nav-links a');
-window.addEventListener('scroll',()=>{
-  let cur='';
-  secs.forEach(s=>{if(window.scrollY>=s.offsetTop-120)cur=s.id});
-  nls.forEach(l=>l.classList.toggle('active',l.getAttribute('href')==='#'+cur));
-},{passive:true});
-
-/* ---- Copy email ---- */
-function copyEmail(){
-  navigator.clipboard.writeText(document.getElementById('emailTxt').innerText).then(()=>{
-    const ok=document.getElementById('copyOk');
-    ok.style.visibility='visible';
-    setTimeout(()=>{ok.style.visibility='hidden'},2600);
-  });
-}
-
-/* ---- GPA modal ---- */
-document.getElementById('gpaBtn').addEventListener('click',()=>document.getElementById('gpaOverlay').classList.add('open'));
-function closeGpa(){document.getElementById('gpaOverlay').classList.remove('open')}
-document.getElementById('gpaOverlay').addEventListener('click',e=>{if(e.target===e.currentTarget)closeGpa()});
-
-/* ---- Project data ---- */
-const PROJ = [
-  {
-    id:'ai',
-    tags:['Multi-Agent AI','LLM','Personal Project'],
-    title:'AI Agent Orchestration Platform',
-    meta:'March 2026 – Present · Personal Project',
-    desc:'Multi-agent orchestration system with autonomous task decomposition, QA validation, and real-time ops dashboard.',
-    img1:'Files/Project_Icons/AI_Team1.jpg',
-    img2:'Files/Project_Icons/AI_Team2.jpg',
-    screenshots:[
-      'Files/AI_Project_Screenshot/20260325_Overview.jpg',
-      'Files/AI_Project_Screenshot/20260325_Activities.jpg',
-      'Files/AI_Project_Screenshot/20260325_Tasks.jpg',
-      'Files/AI_Project_Screenshot/20260325_Team.jpg',
-      'Files/AI_Project_Screenshot/20260325_Run_Board.jpg',
-      'Files/AI_Project_Screenshot/20260325_Approvals.jpg',
-      'Files/AI_Project_Screenshot/20260325_Research_Lab.jpg',
-      'Files/AI_Project_Screenshot/20260325_Docs.jpg',
-      'Files/AI_Project_Screenshot/20260325_Memory.jpg',
-    ],
-    bullets:[
-      'Designed and iterated on a personal multi-agent AI workflow in OpenClaw, defining separate planner, builder, and reviewer roles to improve handoffs, accountability, and quality control.',
-      'Built a file-first execution state layer for tasks, checkpoints, reviews, approvals, and daily memory so agent work could resume across terminal, cron, Telegram, and Discord instead of depending on chat context alone.',
-      'Implemented reliability features for long-running agent work, including checkpoints, sanity-check artifacts, task leases and heartbeats, stale-task detection, and bounded background worker sessions.',
-      'Integrated Supabase as a searchable mirror and dashboard/query layer for logs, journal history, and archive text while keeping local state files as the canonical source of truth.',
-      'Rebuilt an internal operations dashboard in Next.js with dark/light theme support and live views for tasks, approvals, activity, run state, memory, and team roles using real system data instead of mock data.',
-      'Wrote runbooks and review checklists to standardize how agents analyze references, plan UI work, verify builds, and perform human-sanity review before marking work complete.',
-      'Improved local runtime safety by moving secrets out of plaintext config into environment-backed setup and documenting cutover and recovery steps.',
-    ],
-    links:[]
-  },
-  {
-    id:'portfolio',
-    tags:['HTML/CSS/JS','Bootstrap','GitHub Pages'],
-    title:'Personal Portfolio Website',
-    meta:'July 2024 – Present · Independent Project',
-    desc:'Responsive personal portfolio with multiple deployed versions, AI-assisted content iteration, and progressive design improvements.',
-    img1:'Files/Project_Icons/Personal_Portfolio_V1_2.jpg',
-    img2:'Files/Project_Icons/Personal_Portfolio_V3.jpg',
-    screenshots:[],
-    bullets:[
-      'Developed a responsive personal portfolio using React, styled with custom HTML, CSS, and Bootstrap.',
-      'Incorporated AI-driven editing with ChatGPT for content refinement and layout adjustments.',
-      'Published and deployed two versions of the site using GitHub Pages for live access and iteration testing.',
-    ],
-    links:[
-      {label:'Version 1',url:'https://jisungwoo.github.io/jisung_website/'},
-      {label:'Version 2',url:'https://jisungwoo.github.io/jisung_website_v2/'},
-      // Version 3 link — uncomment once deployed:
-      // {label:'Version 3 (Current)',url:'https://jisungwoo.github.io/jisung_website_v3/'},
-    ]
-  },
-  {
-    id:'capstone',
-    tags:['Machine Learning','Python','YOLOv8','OpenCV'],
-    title:'MS-BA Capstone – Tennis Performance Analytics',
-    meta:'June 2024 – December 2024 · Tempe, AZ',
-    desc:'Full-stack ML pipeline for extracting player performance insights from match videos using YOLOv8 and OpenCV.',
-    img1:'Files/Project_Icons/Capstone_Title_Page.jpg',
-    img2:'Files/Project_Icons/Capstone_Agenda.jpg',
-    screenshots:[],
-    bullets:[
-      'Engineered a full-stack ML pipeline for extracting player insights from match videos using YOLOv8 and OpenCV.',
-      'Tracked ball speed and racket movement, automating CSV-based output with Python and Jupyter.',
-      'Reduced analysis time of 20,000+ matches by 90% with optimized video trimming and AI-assisted detection.',
-    ],
-    links:[{label:'Download Presentation',url:'Files/Performance Analytics - Tennis Video Analysis (2024 Capstone).pptx',download:true}]
-  },
-  {
-    id:'ksa',
-    tags:['HTML/CSS/JS','Team Lead','GitHub'],
-    title:'ASU KSA Website Development',
-    meta:'September 2020 – March 2021 · Arizona State University Korean Student Association',
-    desc:'Co-led a 7-person team to design and launch a custom website for ASU\'s Korean Student Association.',
-    img1:'Files/Project_Icons/ksa_logo.jpg',
-    img2:'Files/Project_Icons/ASUforksa.png',
-    img2Contain:true,
-    screenshots:[],
-    bullets:[
-      'Co-led a team of 7 to design and launch a custom website for ASU\'s Korean Student Association.',
-      'Forecasted workload and assigned responsibilities based on projected development milestones and deadlines.',
-      'Led front-end development using HTML, CSS, and JavaScript, ensuring a responsive and accessible UI.',
-      'Mentored team members in GitHub version control and modern web technologies for sustainable site updates.',
-    ],
-    links:[{label:'View on GitHub',url:'https://github.com/JisungWoo/ksa_website'}]
-  },
-  {
-    id:'paypal',
-    tags:['1st Place','Hackathon','HTML/CSS/JS'],
-    title:'PayPal Opportunity Hackathon – 1st Place',
-    meta:'October 2016 · Tempe, AZ',
-    desc:'Built a web-based donor communication tool for a local nonprofit in a 3-person team. Secured 1st place.',
-    img1:'Files/Project_Icons/Paypal_Opportunity_Hackathon.jpg',
-    img2:'Files/Project_Icons/Paypal_Opportunity_Hackathon_2.jpg',
-    img1Contain:true,
-    img2Contain:true,
-    screenshots:[],
-    bullets:[
-      'Collaborated in a 3-person team to create a web-based donor communication tool for local nonprofit Matthew\'s Crossing.',
-      'Developed a custom HTML interface and automated email sender using HTML, CSS, and JavaScript.',
-      'Reduced manual communication time for staff and improved donor engagement through streamlined workflows.',
-      'Secured 1st place for presenting a fully functional and impactful solution at the PayPal Opportunity Hackathon.',
-    ],
-    links:[{label:'View on Devpost',url:'https://devpost.com/software/matthews-crossing-data-manager'}]
-  },
-];
-
-/* ---- Build project grid ---- */
-const grid = document.getElementById('projGrid');
-PROJ.forEach((p,i)=>{
-  const delay=['','d1','d2','d3','d4'][i%5];
-  const i1cls = p.img1Contain ? ' img-contain' : '';
-  const i2cls = p.img2Contain ? ' img-contain' : '';
-  grid.innerHTML += `
-    <div class="proj-card reveal ${delay}" onclick="openProj('${p.id}')">
-      <div class="proj-img-wrap">
-        <img class="img1${i1cls}" src="${p.img1}" alt="${p.title}" loading="lazy">
-        <img class="img2${i2cls}" src="${p.img2}" alt="${p.title}" loading="lazy">
-      </div>
-      <div class="proj-body">
-        <div class="proj-tags-row">${p.tags.map(t=>`<span class="ptag">${t}</span>`).join('')}</div>
-        <div class="proj-ttl">${p.title}</div>
-        <div class="proj-desc">${p.desc}</div>
-      </div>
-    </div>`;
-});
-// Re-observe newly added cards
-document.querySelectorAll('.proj-card.reveal').forEach(el=>obs.observe(el));
-
-/* ---- Open project modal ---- */
-function openProj(id){
-  const p = PROJ.find(x=>x.id===id);
-  if(!p) return;
-
-  const linksHtml = p.links.length ? `
-    <div class="p-secttl" style="margin-top:1.5rem">Links</div>
-    <div class="p-links">
-      ${p.links.map(l=>`<a href="${l.url}" ${l.download?'download':''} target="${l.download?'_self':'_blank'}" class="p-lnk"><i class="bi bi-box-arrow-up-right"></i>${l.label}</a>`).join('')}
-    </div>` : '';
-
-  const screenshotsHtml = p.screenshots.length ? `
-    <div class="p-glbl">Dashboard Screenshots &mdash; click any image to expand</div>
-    <div class="p-gallery">
-      ${p.screenshots.map((s,si)=>`<img src="${s}" alt="screenshot" loading="lazy" onclick="event.stopPropagation();lbOpen('${p.id}',${si})">`).join('')}
-    </div>` : '';
-
-  const imagesHtml = `
-    <div class="p-img-pair">
-      <img src="${p.img1}" alt="${p.title}">
-      <img src="${p.img2}" alt="${p.title}">
-    </div>`;
-
-  document.getElementById('pBody').innerHTML = `
-    <div class="p-hdr">
-      <div class="p-title">${p.title}</div>
-      <div class="p-meta">${p.meta}</div>
-      <div class="p-tagrow">${p.tags.map(t=>`<span class="ptag">${t}</span>`).join('')}</div>
-    </div>
-    ${imagesHtml}
-    ${screenshotsHtml}
-    <div class="p-secttl">Project Details</div>
-    <ul class="p-bullets">
-      ${p.bullets.map(b=>`<li>${b}</li>`).join('')}
-    </ul>
-    ${linksHtml}`;
-
-  document.getElementById('pOverlay').classList.add('open');
-  document.body.style.overflow = 'hidden';
-}
-
-function closeProj(){
-  document.getElementById('pOverlay').classList.remove('open');
-  document.body.style.overflow = '';
-}
-document.getElementById('pOverlay').addEventListener('click', e=>{
-  if(e.target===e.currentTarget) closeProj();
-});
-document.addEventListener('keydown', e=>{
-  if(e.key==='Escape'){closeProj();closeGpa();lbClose()}
-  if(e.key==='ArrowLeft')  lbStep(-1);
-  if(e.key==='ArrowRight') lbStep(1);
-});
-
-/* ---- Lightbox ---- */
-let lbImages=[], lbIdx=0;
-function lbOpen(projId, startIdx){
-  const p=PROJ.find(x=>x.id===projId);
-  if(!p||!p.screenshots.length) return;
-  lbImages=p.screenshots;
-  lbIdx=startIdx||0;
-  lbRender();
-  document.getElementById('lb').classList.add('open');
-  document.body.style.overflow='hidden';
-}
-function lbRender(){
-  document.getElementById('lbImg').src=lbImages[lbIdx];
-  document.getElementById('lbCounter').textContent=(lbIdx+1)+' / '+lbImages.length;
-}
-function lbStep(dir){
-  if(!lbImages.length) return;
-  lbIdx=(lbIdx+dir+lbImages.length)%lbImages.length;
-  lbRender();
-}
-function lbClose(){
-  document.getElementById('lb').classList.remove('open');
-  document.body.style.overflow='';
-}
-document.getElementById('lb').addEventListener('click',e=>{
-  if(e.target===e.currentTarget) lbClose();
-});
-</script>
+  <script>window.__PORTFOLIO__ = {"site":{"languageCode":"en","pagePath":"index.html","title":"Jisung Woo | Data Engineer + AI Systems Builder","description":"Data engineer and AI systems builder creating enterprise data platforms, orchestration workflows, and trustworthy analytics experiences.","localeSwitch":{"label":"KR","text":"Korean","href":"index_kr.html"},"nav":[{"label":"About","href":"#about"},{"label":"AI Philosophy","href":"#philosophy"},{"label":"Experience","href":"#experience"},{"label":"Projects","href":"#projects"},{"label":"Capabilities","href":"#capabilities"},{"label":"Education","href":"#education"},{"label":"Journey","href":"#journey"},{"label":"Contact","href":"#contact"}],"hero":{"badge":"Open to opportunities","role":"Data Engineer + AI Systems Builder","name":"Jisung Woo","thesis":"Building data systems people can trust and AI systems people can actually use.","summary":"I work at the intersection of enterprise data infrastructure, workflow automation, and AI orchestration - turning complex systems into tools that stay understandable under real-world pressure.","primaryCta":{"label":"Download Resume","href":"Files/JisungWoo_Resume.pdf","download":true},"secondaryCta":{"label":"Read AI Philosophy","href":"#philosophy"},"metrics":[{"value":"4+","label":"Years in data engineering"},{"value":"9K+","label":"Snowflake objects managed"},{"value":"100K+","label":"Users impacted"},{"value":"4.0","label":"Graduate GPA"}],"visualTags":["Snowflake EDW","AI orchestration","Column lineage","Systems thinking"],"photoAlt":"Portrait of Jisung Woo at Arizona State University.","logoLabel":"Worked at"},"about":{"eyebrow":"About Me","title":"Turning data complexity into clarity.","body":["I'm a Data Engineer who builds reliable, scalable data systems - and increasingly, AI-powered ones. At Honeywell, I engineer transformation logic across a Snowflake Enterprise Data Warehouse spanning 9,000+ objects, manage government-scale datasets under strict compliance, and coordinate offshore teams to deliver against tight deadlines. My stack spans Snowflake, Informatica, Control-M, SQL Server, and Python.","What sets me apart is how I'm bridging traditional data engineering with AI. I led an initiative to automate column-level lineage across our entire EDW using Snowflake's native LLM functions and Claude Opus - reaching roughly 80% accuracy on work that would have taken months manually. I've also prototyped internal data catalog tooling in React and started shaping a semantic layer and metadata governance direction for the warehouse.","My approach starts with the meaning behind the data, not just the mechanics of moving it. I care about structure, documentation, and building systems other people can understand, maintain, and trust. Whether it's enterprise pipelines or autonomous AI workflows, the standard is the same: precision with thoughtful communication.","Outside of work, I build multi-agent systems and portfolio experiments that let me test orchestration, review loops, and human-in-the-loop AI design in a practical way."],"actions":[{"label":"Technical deep dive","href":"Files/column_lineage_portfolio.html"},{"label":"Resume","href":"Files/JisungWoo_Resume.pdf","download":true}]},"philosophy":{"eyebrow":"AI Philosophy","title":"AI is most powerful when it is orchestrated, not merely queried.","body":"We are entering a world where the people who know how to use AI well will have outsized leverage. Most people, including highly capable engineers, still use it like a search engine: ask a question, get an answer, move on. What interests me is what happens when you architect the system around the model instead.","pianoTitle":"The Piano Analogy","pianoBody":"A Steinway is one of the finest instruments in the world, but if you hand it to someone who has never played, it's just expensive wood. AI is similar. The models are extraordinary. The rare skill is knowing how to actually play them: compose tasks, enforce guardrails, route between models, and turn raw capability into reliable outcomes.","tags":["Agents","Guardrails","Model Routing","Human Validation"],"items":[{"number":"01","title":"AI Is Leverage","text":"I believe effective AI use massively expands individual potential. Clear intent, structural thinking, and precise prompting now let small teams build systems that would have taken much larger teams years ago."},{"number":"02","title":"Orchestration Beats Prompting","text":"The prompt matters, but the bigger win comes from the workflow around it: state, routing, validation, fallbacks, and the way a system recovers when the first answer is not enough."},{"number":"03","title":"Human Judgment Is The Final Layer","text":"I do not see AI as a replacement for judgment. I see it as a force multiplier inside systems where accountability, review, and trust still belong to people."}]},"work":{"eyebrow":"Projects","title":"Projects shaped around real systems, not just polished screens.","body":"A few representative projects that show how I think about infrastructure, interfaces, and delivery.","primaryProjects":[{"id":"ai-platform","tone":"signal","tags":["Multi-agent systems","LLM","Operations UI"],"title":"AI Agent Orchestration Platform","meta":"Personal project · 2026 - Present","summary":"An autonomous multi-agent workflow with execution state, approvals, dashboards, and guardrails for long-running development work.","lead":"I designed the planner-builder-reviewer structure, the execution state layer, and the operations surface so agent work could be resumed, audited, and improved instead of disappearing into chat history.","highlights":["File-first execution state for tasks, checkpoints, reviews, approvals, and daily memory.","Supabase-backed search and operations dashboard layered on top of local source-of-truth files.","Next.js dashboard rebuilt around live system data rather than mock states."],"media":{"primary":"Files/AI_Project_Screenshot/20260325_Overview.jpg","secondary":"Files/AI_Project_Screenshot/20260325_Team.jpg"},"modalProjectId":"ai","actions":[{"label":"Open project details","kind":"modal","projectId":"ai"}]},{"id":"tennis-capstone","tone":"cyan","tags":["Machine learning","YOLOv8","Video analytics"],"title":"MS-BA Capstone: Tennis Performance Analytics","meta":"Arizona State University · 2024","summary":"A full-stack ML pipeline for extracting player insights from match video using YOLOv8, OpenCV, and Python.","lead":"The goal was to make player analysis faster, more repeatable, and much easier to operate at scale than manual review.","highlights":["Tracked ball speed and racket movement from match footage.","Automated CSV-based output for downstream analysis in Python and Jupyter.","Reduced analysis time across a 20,000+ match set by roughly 90%."],"media":{"primary":"Files/Project_Icons/Capstone_Title_Page.jpg","secondary":"Files/Project_Icons/Capstone_Agenda.jpg"},"modalProjectId":"capstone","actions":[{"label":"Open project details","kind":"modal","projectId":"capstone"},{"label":"Download presentation","kind":"link","href":"Files/Performance Analytics - Tennis Video Analysis (2024 Capstone).pptx","download":true}]},{"id":"ksa-site","tone":"amber","tags":["Team leadership","HTML/CSS/JS","Student organization"],"title":"ASU Korean Student Association Website","meta":"Arizona State University · 2020 - 2021","summary":"A custom website delivered by a 7-person team, with front-end leadership, milestone planning, and GitHub onboarding for sustainable maintenance.","lead":"This project mattered because it combined product delivery with team coordination: assigning work, mentoring contributors, and still shipping a responsive site.","highlights":["Co-led planning and delivery for a 7-person build team.","Owned front-end implementation in HTML, CSS, and JavaScript.","Introduced GitHub practices so the organization could keep iterating after launch."],"media":{"primary":"Files/Project_Icons/ksa_logo.jpg","secondary":"Files/Project_Icons/ASUforksa.png","containSecondary":true},"modalProjectId":"ksa","actions":[{"label":"Open project details","kind":"modal","projectId":"ksa"},{"label":"View repository","kind":"link","href":"https://github.com/JisungWoo/ksa_website"}]}],"secondaryProjectsLabel":"More projects","secondaryProjects":[{"label":"Personal Portfolio Website","meta":"Responsive personal site with iterative design versions and live GitHub Pages deployments.","projectId":"portfolio"},{"label":"PayPal Opportunity Hackathon - 1st Place","meta":"Donor communication workflow for a nonprofit, built in a 3-person team.","projectId":"paypal"}]},"experience":{"eyebrow":"Experience","title":"Enterprise systems, AI exploration, and delivery work that ships.","intro":"I do my best work where the technical rigor is high, the stakeholder pressure is real, and the system still needs to stay legible.","deepDive":{"label":"Technical deep dive","href":"Files/column_lineage_portfolio.html"},"items":[{"id":"honeywell","company":"Honeywell","role":"Data Engineer II","period":"Aug 2024 - Present","location":"Phoenix, AZ","summary":"Enterprise warehouse development, AI-driven lineage automation, and cross-functional delivery inside a high-compliance environment.","chips":["Snowflake","AI / LLM","Column lineage","React","SDLC"],"detailLink":{"label":"Technical deep dive","href":"Files/column_lineage_portfolio.html"},"bullets":["Engineer SQL-based transformation logic across a Snowflake EDW supporting 100K+ employees and 9,000+ tables/views.","Built an AI-driven column lineage initiative using Snowflake native LLM functions and Claude Opus, reaching roughly 80% mapping accuracy and compressing months of manual documentation into weeks.","Prototyped an internal React lineage visualization tool to demonstrate the feasibility of in-house data catalog capabilities.","Coordinate delivery across a 10-person offshore team while serving as a technical liaison for business stakeholders and engineering partners."]},{"id":"asuep","company":"ASU Enterprise Partners","role":"Data Engineer I","period":"Mar 2022 - Jul 2024","location":"Tempe, AZ","summary":"Pipeline modernization, ETL/ELT automation, and warehouse integration across SQL Server, Azure, Salesforce, and Workday.","chips":["SSIS","Azure Data Factory","SQL Server","Power BI","ETL / ELT"],"bullets":["Automated data loading workflows with SSIS and Azure Data Factory to remove manual steps and reduce data-loading errors.","Led migration of legacy SSIS jobs and stored procedures to Azure Data Factory, modernizing the pipeline architecture.","Built SQL Server procedures that automated Power BI refreshes and reduced heavy DAX dependence.","Designed ETL/ELT pipelines that integrated SQL Server, Salesforce, Workday, and Azure Blob Storage into the enterprise warehouse."]},{"id":"oracle-cerner","company":"Oracle Cerner","role":"Technical Solution Analyst","period":"Feb 2021 - Mar 2022","location":"Kansas City, MO","summary":"Back-end investigation, SQL troubleshooting, client communication, and high-volume issue resolution inside healthcare systems.","chips":["Oracle SQL","Data integrity","Log analysis","Healthcare","SLA"],"bullets":["Investigated and resolved front-end and back-end data issues using SQL, logs, and Oracle-based monitoring while sustaining 90%+ client satisfaction.","Worked across engineering and client teams to stabilize data flows and perform safe SQL updates for production systems.","Analyzed Oracle query plans and system logs to repair broken pipelines and improve transaction performance.","Handled 90-110 issues per month and supported 24/7 on-call healthcare operations."]}]},"capabilities":{"eyebrow":"Capabilities","title":"A capability stack shaped by both data engineering and AI workflow design.","body":"The mix is intentional: enterprise warehouse rigor, AI orchestration thinking, and enough front-end fluency to make systems inspectable.","groups":[{"title":"Data Engineering","items":["Snowflake","ETL / ELT pipelines","Data modeling","Data warehousing","SQL Server","SSIS","Informatica","Control-M"]},{"title":"AI Workflows","items":["Multi-agent orchestration","Prompt engineering","LLM-assisted development","OpenAI Codex","Claude","Ollama","Column lineage automation"]},{"title":"Prototyping","items":["React prototypes","Next.js dashboards","Supabase","HTML / CSS / JavaScript","GitHub","Workflow tooling"]},{"title":"Delivery","items":["Technical stakeholder communication","Documentation","SDLC coordination","Offshore team collaboration","English (fluent)","Korean (fluent)"]}]},"journey":{"eyebrow":"Journey","title":"Curious how I went from a 2.73 to a 4.0?","summary":"The short answer is not talent. It was recognizing a real weakness, then building a system strong enough to compensate for it.","fromLabel":"Undergraduate GPA","toLabel":"Master's GPA","bridge":"Memory has never been my strongest trait. What changed was building a habit of writing down details clearly enough that both I and other people could follow the work without relying on recall alone.","milestones":[{"label":"Then","title":"Relying too much on memory","text":"I have never had especially strong recall, so when I relied on memory alone it was easy to lose details, context, and continuity."},{"label":"Shift","title":"Turning notes into a real system","text":"To compensate, I started taking detailed notes and organizing them carefully enough that someone else could understand what I had done, why it mattered, and what came next."},{"label":"Now","title":"A professional strength","text":"That habit now directly helps me at work. Clear documentation, organized context, and handoff-ready notes have become part of how I build reliable systems and collaborate well with others."}],"action":{"label":"Ask me about it","href":"#contact"}},"education":{"eyebrow":"Education","title":"Degrees and formal training.","body":"The academic record matters. The operating change behind it matters even more.","items":[{"label":"Master's Degree","degree":"M.S. in Business Analytics","school":"W. P. Carey School of Business, Arizona State University","period":"Aug 2023 - Dec 2024","detail":"GPA 4.0 · Graduated with distinction","image":"Files/2024_MS-BA_diploma.png","imageAlt":"MS diploma","href":"Files/2024_MS-BA Diploma.pdf"},{"label":"Bachelor's Degree","degree":"B.S. in Computer Information Systems","school":"W. P. Carey School of Business, Arizona State University","period":"Aug 2016 - Dec 2020","detail":"GPA 2.73","image":"Files/2020_CIS_diploma.png","imageAlt":"BS diploma","href":"Files/2020_CIS_Diploma.pdf"}]},"contact":{"eyebrow":"Contact","title":"Let's talk about data engineering, AI platforms, or the systems in between.","body":"Open to opportunities where reliable data foundations and thoughtful AI integration both matter.","email":"jisungwoo9@gmail.com","copyLabel":"Copy email","copySuccess":"Copied to clipboard","actions":[{"label":"LinkedIn","href":"https://www.linkedin.com/in/jisung-woo/"},{"label":"GitHub","href":"https://github.com/JisungWoo"},{"label":"Resume","href":"Files/JisungWoo_Resume.pdf","download":true}]},"footer":"Built as a bilingual portfolio shaped around systems thinking, clear writing, and intentional motion.","ui":{"menu":"Open menu","close":"Close","openDetails":"Open details","closeDetails":"Close details","viewScreenshots":"View screenshots","previousImage":"Previous image","nextImage":"Next image","screenshot":"Screenshot","primaryNav":"Primary navigation","themeGroup":"Theme","themeLight":"Light","themeDark":"Dark"},"modalProjects":[{"id":"ai","title":"AI Agent Orchestration Platform","meta":"Personal project · March 2026 - Present","summary":"A multi-agent orchestration system with autonomous task decomposition, approvals, dashboards, and reliability features for long-running work.","tags":["Multi-agent AI","LLM","Operations UI","Supabase","Next.js"],"imagePair":["Files/Project_Icons/AI_Team1.jpg","Files/Project_Icons/AI_Team2.jpg"],"containFirstImage":true,"containSecondImage":true,"screenshots":["Files/AI_Project_Screenshot/20260325_Overview.jpg","Files/AI_Project_Screenshot/20260325_Activities.jpg","Files/AI_Project_Screenshot/20260325_Tasks.jpg","Files/AI_Project_Screenshot/20260325_Team.jpg","Files/AI_Project_Screenshot/20260325_Run_Board.jpg","Files/AI_Project_Screenshot/20260325_Approvals.jpg","Files/AI_Project_Screenshot/20260325_Research_Lab.jpg","Files/AI_Project_Screenshot/20260325_Docs.jpg","Files/AI_Project_Screenshot/20260325_Memory.jpg"],"bullets":["Designed a personal multi-agent workflow in OpenClaw with separate planner, builder, and reviewer roles to improve handoffs and quality control.","Built a file-first execution state layer for tasks, checkpoints, reviews, approvals, and daily memory so work could continue across terminal, cron, Telegram, and Discord without depending on chat history alone.","Implemented reliability features for long-running work including checkpoints, sanity-check artifacts, task leases, heartbeats, stale-task detection, and bounded background worker sessions.","Integrated Supabase as a searchable mirror and dashboard layer while keeping local files as the canonical source of truth.","Rebuilt the internal operations dashboard in Next.js with live views for tasks, approvals, activity, run state, memory, and team roles using real system data."],"links":[]},{"id":"capstone","title":"MS-BA Capstone: Tennis Performance Analytics","meta":"Arizona State University · Jun 2024 - Dec 2024","summary":"A computer-vision project for extracting performance insights from tennis match footage using YOLOv8 and OpenCV.","tags":["Machine learning","Python","YOLOv8","OpenCV"],"imagePair":["Files/Project_Icons/Capstone_Title_Page.jpg","Files/Project_Icons/Capstone_Agenda.jpg"],"containFirstImage":true,"containSecondImage":true,"screenshots":[],"bullets":["Engineered a full-stack ML pipeline for extracting player insights from match videos using YOLOv8 and OpenCV.","Tracked ball speed and racket movement and automated CSV-based output with Python and Jupyter.","Reduced analysis time across a 20,000+ match corpus by roughly 90% with optimized video trimming and AI-assisted detection."],"links":[{"label":"Download presentation","url":"Files/Performance Analytics - Tennis Video Analysis (2024 Capstone).pptx","download":true}]},{"id":"ksa","title":"ASU Korean Student Association Website","meta":"Arizona State University Korean Student Association · Sep 2020 - Mar 2021","summary":"A team-led website project for ASU's Korean Student Association with front-end ownership and contributor onboarding.","tags":["HTML/CSS/JS","Team lead","GitHub"],"imagePair":["Files/Project_Icons/ksa_logo.jpg","Files/Project_Icons/ASUforksa.png"],"containSecondImage":true,"screenshots":[],"bullets":["Co-led a 7-person team to design and launch a custom website for ASU's Korean Student Association.","Planned workload and milestones, assigned responsibilities, and kept the project moving toward launch.","Led front-end development using HTML, CSS, and JavaScript while keeping the experience responsive and accessible.","Mentored teammates in GitHub version control and modern web basics so the site could be maintained after launch."],"links":[{"label":"View repository","url":"https://github.com/JisungWoo/ksa_website"}]},{"id":"portfolio","title":"Personal Portfolio Website","meta":"Independent project · Jul 2024 - Present","summary":"A responsive personal portfolio with multiple deployed versions, AI-assisted iteration, and progressive visual refinement.","tags":["HTML/CSS/JS","GitHub Pages","Portfolio design"],"imagePair":["Files/Project_Icons/Personal_Portfolio_V1_2.jpg","Files/Project_Icons/Personal_Portfolio_V3.jpg"],"containFirstImage":true,"screenshots":[],"bullets":["Built a responsive personal portfolio and kept iterating on its information design, interaction design, and visual hierarchy.","Used AI-assisted editing to refine copy, layout direction, and iteration speed without losing authorship of the work.","Published multiple live versions through GitHub Pages to test and compare design changes in real deployment conditions."],"links":[{"label":"Version 1","url":"https://jisungwoo.github.io/jisung_website/"},{"label":"Version 2","url":"https://jisungwoo.github.io/jisung_website_v2/"},{"label":"Version 3","url":"https://jisungwoo.github.io/jisung_website_v3/"}]},{"id":"paypal","title":"PayPal Opportunity Hackathon - 1st Place","meta":"Hackathon project · Oct 2016","summary":"A donor communication tool built for a local nonprofit in a 3-person team, resulting in a first-place finish.","tags":["Hackathon","1st place","HTML/CSS/JS"],"imagePair":["Files/Project_Icons/Paypal_Opportunity_Hackathon.jpg","Files/Project_Icons/Paypal_Opportunity_Hackathon_2.jpg"],"containFirstImage":true,"containSecondImage":true,"screenshots":[],"bullets":["Collaborated in a 3-person team to build a web-based donor communication tool for Matthew's Crossing.","Created a custom HTML interface and automated email sender using HTML, CSS, and JavaScript.","Reduced manual communication effort for staff and improved donor outreach workflows.","Won first place at the PayPal Opportunity Hackathon with a fully functioning solution."],"links":[{"label":"View on Devpost","url":"https://devpost.com/software/matthews-crossing-data-manager"}]}]},"shared":{"year":2026,"logos":[{"src":"Files/Honeywell.png","alt":"Honeywell"},{"src":"Files/ASUEP.png","alt":"ASU Enterprise Partners"},{"src":"Files/Oracle_Cerner.png","alt":"Oracle Cerner"}],"heroMedia":{"portrait":"Files/Profile_Pic_Graduation.jpg","dashboardPrimary":"Files/AI_Project_Screenshot/20260325_Overview.jpg","dashboardSecondary":"Files/AI_Project_Screenshot/20260325_Run_Board.jpg"},"linkedinHref":"https://www.linkedin.com/in/jisung-woo/","githubHref":"https://github.com/JisungWoo","resumeHref":"Files/JisungWoo_Resume.pdf"}};</script>
+  <script defer src="./app.js"></script>
 </body>
 </html>

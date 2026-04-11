@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>컬럼 계보 자동화 | Jisung Woo</title>
+  <meta
+    name="description"
+    content="Snowflake 네이티브 LLM과 Claude를 결합해 컬럼 단위 계보를 자동화한 Honeywell 프로젝트의 한국어 요약 페이지입니다."
+  />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Inter:wght@400;500;600;700&family=Noto+Sans+KR:wght@400;500;700;800&family=Space+Grotesk:wght@500;700&display=swap"
+    rel="stylesheet"
+  />
+  <style>
+    :root {
+      --bg: #07101c;
+      --surface: rgba(12, 23, 39, 0.82);
+      --line: rgba(150, 191, 255, 0.14);
+      --text: #f4f7fb;
+      --muted: #9fb0c7;
+      --signal: #ff4b6e;
+      --cyan: #49d8ff;
+      --radius: 28px;
+      --container: min(980px, calc(100vw - 2rem));
+    }
+
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      background:
+        radial-gradient(circle at top right, rgba(255, 75, 110, 0.16), transparent 26%),
+        radial-gradient(circle at 12% 18%, rgba(73, 216, 255, 0.18), transparent 24%),
+        linear-gradient(180deg, #08111d 0%, #07101c 100%);
+      color: var(--text);
+      font-family: "Noto Sans KR", "Inter", sans-serif;
+      line-height: 1.7;
+    }
+
+    main {
+      width: var(--container);
+      margin: 0 auto;
+      padding: 4rem 0 5rem;
+    }
+
+    .eyebrow {
+      margin: 0 0 1rem;
+      color: var(--cyan);
+      font: 500 0.82rem/1.3 "IBM Plex Mono", monospace;
+      letter-spacing: 0.04em;
+    }
+
+    h1,
+    h2 {
+      margin: 0;
+      font-family: "Noto Sans KR", "Space Grotesk", sans-serif;
+      line-height: 1.08;
+      letter-spacing: -0.04em;
+    }
+
+    h1 { font-size: clamp(2.4rem, 6vw, 4.8rem); }
+    h2 { font-size: clamp(1.35rem, 3vw, 2rem); }
+
+    p { margin: 1rem 0 0; color: var(--muted); }
+
+    .hero,
+    .section,
+    .cta {
+      padding: 1.5rem;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: var(--surface);
+      backdrop-filter: blur(14px);
+    }
+
+    .hero {
+      margin-bottom: 1rem;
+      background: linear-gradient(135deg, rgba(255, 75, 110, 0.08), rgba(73, 216, 255, 0.08), rgba(255, 255, 255, 0.02));
+    }
+
+    .hero-meta,
+    .chip-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.7rem;
+      margin-top: 1.25rem;
+    }
+
+    .chip {
+      padding: 0.5rem 0.8rem;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      font-size: 0.88rem;
+      color: var(--text);
+      background: rgba(255, 255, 255, 0.03);
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 1rem;
+      margin-top: 1rem;
+    }
+
+    ul {
+      margin: 1rem 0 0;
+      padding-left: 1.15rem;
+    }
+
+    li { margin-top: 0.6rem; }
+
+    .cta {
+      margin-top: 1rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.8rem;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.8rem;
+    }
+
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0.9rem 1.15rem;
+      border-radius: 999px;
+      border: 1px solid var(--line);
+      color: var(--text);
+      background: rgba(255, 255, 255, 0.04);
+      text-decoration: none;
+    }
+
+    .button.primary {
+      background: linear-gradient(135deg, var(--signal), #ff7563);
+      border-color: transparent;
+      color: white;
+      font-weight: 700;
+    }
+
+    @media (max-width: 760px) {
+      .grid { grid-template-columns: 1fr; }
+      .cta { align-items: flex-start; }
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <section class="hero">
+      <p class="eyebrow">Honeywell · 한국어 요약</p>
+      <h1>Snowflake 컬럼 계보 자동화 프로젝트</h1>
+      <p>
+        Snowflake 네이티브 LLM 기능과 Claude를 결합해 9,000개 이상의 객체를 대상으로 컬럼 단위
+        계보를 자동화한 작업입니다. 수개월이 걸릴 수 있는 수작업 문서화를 수주 단위로 줄이는
+        것이 핵심 목표였습니다.
+      </p>
+      <div class="hero-meta">
+        <span class="chip">Snowflake</span>
+        <span class="chip">LLM</span>
+        <span class="chip">Column Lineage</span>
+        <span class="chip">Enterprise Data Warehouse</span>
+      </div>
+    </section>
+
+    <div class="grid">
+      <section class="section">
+        <p class="eyebrow">문제 정의</p>
+        <h2>왜 이 작업이 필요했는가</h2>
+        <p>
+          엔터프라이즈 데이터웨어하우스가 커질수록 컬럼 수준의 데이터 흐름을 문서화하는 비용이
+          기하급수적으로 커집니다. 사람이 직접 계보를 추적하면 시간이 오래 걸리고, 유지보수
+          속도도 따라가지 못합니다.
+        </p>
+      </section>
+
+      <section class="section">
+        <p class="eyebrow">접근 방식</p>
+        <h2>모델을 직접 쓰는 대신, 구조를 먼저 설계</h2>
+        <p>
+          핵심은 단순히 LLM에 SQL을 던지는 것이 아니라, Snowflake 안에서 실행 가능한 흐름과
+          검증 기준을 같이 설계하는 것이었습니다. 모델 응답을 바로 믿지 않고, 사람이 확인할 수
+          있는 형태로 정리하고 보완하는 구조를 만들었습니다.
+        </p>
+      </section>
+
+      <section class="section">
+        <p class="eyebrow">성과</p>
+        <h2>문서화 시간을 수개월에서 수주로 단축</h2>
+        <ul>
+          <li>9,000개 이상 객체를 대상으로 자동화 가능한 계보 추출 흐름을 설계했습니다.</li>
+          <li>컬럼 단위 매핑에서 약 80% 수준의 정확도를 확보했습니다.</li>
+          <li>실무 적용 가능성을 보여주면서 이후 확장 논의를 위한 기반을 만들었습니다.</li>
+        </ul>
+      </section>
+
+      <section class="section">
+        <p class="eyebrow">의미</p>
+        <h2>AI 실험이 아니라 운영 가능한 워크플로</h2>
+        <p>
+          이 프로젝트는 모델의 성능 자체보다, 엔터프라이즈 환경에서 믿고 사용할 수 있는 운영
+          구조를 어떻게 설계할지에 더 가까웠습니다. 제가 AI를 바라보는 방식도 이 지점에
+          있습니다.
+        </p>
+      </section>
+    </div>
+
+    <section class="cta">
+      <div>
+        <p class="eyebrow">다음 단계</p>
+        <h2>영문 상세 페이지도 함께 볼 수 있습니다.</h2>
+        <p>더 자세한 구조와 구현 흐름은 기존 영문 deep dive 페이지에서 확인할 수 있습니다.</p>
+      </div>
+      <div class="links">
+        <a class="button" href="../index_kr.html">한국어 포트폴리오로 돌아가기</a>
+        <a class="button primary" href="./column_lineage_portfolio.html">영문 상세 보기</a>
+      </div>
+    </section>
+  </main>
+</body>
+</html>

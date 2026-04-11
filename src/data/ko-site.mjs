@@ -1,0 +1,333 @@
+import { deepDiveHref, githubHref, linkedinHref, resumeHref } from "./shared.mjs";
+
+export const koSite = {
+  languageCode: "ko",
+  pagePath: "index_kr.html",
+  title: "Jisung Woo | 데이터 엔지니어 · AI 시스템 빌더",
+  description:
+    "엔터프라이즈 데이터 플랫폼과 AI 워크플로를 설계하고 구현하는 데이터 엔지니어 Jisung Woo의 포트폴리오입니다.",
+  localeSwitch: { label: "EN", text: "English", href: "index.html" },
+  nav: [
+    { label: "소개", href: "#about" },
+    { label: "AI 철학", href: "#philosophy" },
+    { label: "경력", href: "#experience" },
+    { label: "프로젝트", href: "#projects" },
+    { label: "핵심 역량", href: "#capabilities" },
+    { label: "학력", href: "#education" },
+    { label: "성장 과정", href: "#journey" },
+    { label: "연락처", href: "#contact" },
+  ],
+  hero: {
+    badge: "새로운 기회에 열려 있습니다",
+    role: "데이터 엔지니어 · AI 시스템 빌더",
+    name: "Jisung Woo",
+    thesis: "신뢰할 수 있는 데이터 시스템과 실제로 쓰이는 AI 시스템을 만듭니다.",
+    summary:
+      "엔터프라이즈 데이터 인프라, 워크플로 자동화, AI 오케스트레이션이 만나는 지점에서 복잡한 시스템을 더 명확하고 실용적인 형태로 정리하는 일을 합니다.",
+    primaryCta: { label: "이력서 다운로드", href: resumeHref, download: true },
+    secondaryCta: { label: "AI 철학 보기", href: "#philosophy" },
+    metrics: [
+      { value: "4년+", label: "데이터 엔지니어링 경력" },
+      { value: "9천+", label: "관리한 Snowflake 객체" },
+      { value: "10만+", label: "영향 사용자" },
+      { value: "4.0", label: "석사 GPA" },
+    ],
+    visualTags: ["Snowflake EDW", "AI 오케스트레이션", "컬럼 계보", "시스템 사고"],
+    photoAlt: "Arizona State University에서 촬영한 Jisung Woo 프로필 사진.",
+    logoLabel: "근무한 곳",
+  },
+  about: {
+    eyebrow: "소개",
+    title: "복잡한 데이터를 이해 가능한 구조로 바꾸는 일.",
+    body: [
+      "저는 신뢰성과 확장성을 갖춘 데이터 시스템을 만드는 데이터 엔지니어입니다. Honeywell에서는 9,000개 이상 객체로 구성된 Snowflake Enterprise Data Warehouse의 변환 로직을 개발하고, 규제가 엄격한 환경의 대규모 데이터를 다루며, 오프쇼어 팀과 협업해 촉박한 일정 안에서도 결과를 만들어 왔습니다. 주로 Snowflake, Informatica, Control-M, SQL Server, Python을 사용합니다.",
+      "제 강점은 전통적인 데이터 엔지니어링과 AI 활용을 실제 업무에 자연스럽게 연결한다는 점입니다. Snowflake 네이티브 LLM 기능과 Claude Opus를 활용해 EDW 전반의 컬럼 단위 계보 문서화를 자동화했고, 수개월이 걸릴 작업을 훨씬 짧은 기간 안에 약 80% 정확도로 끌어올렸습니다. 또한 React 기반 내부 데이터 카탈로그 프로토타입을 만들며 시맨틱 레이어와 메타데이터 거버넌스 방향도 함께 고민해 왔습니다.",
+      "저는 단순히 데이터를 옮기는 것보다, 그 데이터가 어떤 의미를 가지는지 그리고 다른 사람이 얼마나 쉽게 이해하고 이어받을 수 있는지를 더 중요하게 봅니다. 그래서 구조, 문서화, 전달 방식을 중요하게 생각합니다. 엔터프라이즈 파이프라인이든 자율형 AI 워크플로든 기준은 같습니다. 정확하고 설명 가능한 시스템이어야 합니다.",
+      "개인적으로는 멀티 에이전트 시스템과 포트폴리오 실험을 통해 오케스트레이션, 리뷰 루프, human-in-the-loop 설계를 실전 감각으로 검증하고 있습니다.",
+    ],
+    actions: [
+      { label: "기술 상세 보기", href: deepDiveHref.replace("column_lineage_portfolio.html", "column_lineage_portfolio_kr.html") },
+      { label: "이력서 보기", href: resumeHref, download: true },
+    ],
+  },
+  philosophy: {
+    eyebrow: "AI 철학",
+    title: "AI의 진짜 힘은 답변 한 번이 아니라, 그 주변의 시스템 설계에서 나온다고 믿습니다.",
+    body:
+      "앞으로는 AI를 제대로 활용하는 사람이 훨씬 큰 레버리지를 갖게 될 것이라고 생각합니다. 아직도 많은 사람들은 AI를 검색 엔진처럼 사용합니다. 질문하고, 답을 받고, 끝내는 방식입니다. 제가 더 관심을 두는 지점은 모델 하나의 성능보다, 그 모델을 둘러싼 역할 분리, 상태 관리, 검증, 복구 흐름을 어떻게 설계하느냐입니다.",
+    pianoTitle: "피아노 비유",
+    pianoBody:
+      "Steinway는 훌륭한 악기이지만, 연주할 줄 모르는 사람에게는 그저 비싼 피아노일 뿐입니다. AI도 비슷합니다. 모델 자체는 이미 뛰어납니다. 차이를 만드는 것은 그것을 어떻게 다룰 줄 아느냐입니다. 작업을 잘게 나누고, 가드레일을 세우고, 상황에 맞게 모델을 라우팅하고, 결과를 신뢰할 수 있는 흐름으로 바꾸는 능력이 중요합니다.",
+    tags: ["에이전트", "가드레일", "모델 라우팅", "사람 검증"],
+    items: [
+      {
+        number: "01",
+        title: "AI는 레버리지다",
+        text: "AI를 제대로 활용하면 개인과 소규모 팀의 생산성이 크게 확장된다고 생각합니다. 명확한 의도와 구조적인 사고가 있으면 예전에는 더 큰 조직이 필요했던 일도 훨씬 작은 단위에서 해낼 수 있습니다.",
+      },
+      {
+        number: "02",
+        title: "프롬프트보다 오케스트레이션",
+        text: "좋은 프롬프트는 중요하지만, 더 큰 차이를 만드는 것은 그 주변의 시스템입니다. 상태 관리, 역할 분리, 모델 라우팅, 검증 단계, 실패 시 대처 방식이 있어야 결과가 반복 가능해집니다.",
+      },
+      {
+        number: "03",
+        title: "마지막 판단은 사람의 몫",
+        text: "저는 AI를 사람의 판단을 대체하는 도구로 보지 않습니다. 책임과 검토가 필요한 지점은 여전히 사람이 맡아야 하고, AI는 그 사이에서 속도와 범위를 넓혀 주는 증폭기라고 생각합니다.",
+      },
+    ],
+  },
+  work: {
+    eyebrow: "프로젝트",
+    title: "겉으로만 정리된 화면보다, 실제 문제를 해결하는 구조와 흐름에 더 집중한 프로젝트들입니다.",
+    body: "인프라, 인터페이스, 전달 방식이 어떻게 맞물리는지 보여 줄 수 있는 대표 작업들만 골랐습니다.",
+    primaryProjects: [
+      {
+        id: "ai-platform",
+        tone: "signal",
+        tags: ["멀티 에이전트", "LLM", "운영 UI"],
+        title: "AI 에이전트 오케스트레이션 플랫폼",
+        meta: "개인 프로젝트 · 2026년 - 현재",
+        summary: "장기 실행 작업을 위한 멀티 에이전트 워크플로, 승인 체계, 상태 관리, 운영 대시보드를 직접 설계하고 구축한 프로젝트입니다.",
+        lead: "기획, 구현, 리뷰 역할을 분리하고 실행 상태를 파일 중심으로 관리해, 대화 맥락에 의존하지 않는 지속 가능한 에이전트 작업 흐름을 만드는 데 집중했습니다.",
+        highlights: [
+          "태스크, 체크포인트, 리뷰, 승인, 메모리를 파일 기반 상태 레이어로 통합했습니다.",
+          "로컬 상태 파일을 원본으로 유지하면서 Supabase를 검색 및 운영 대시보드 계층으로 연결했습니다.",
+          "실제 시스템 데이터를 기반으로 한 Next.js 운영 대시보드를 재구성했습니다.",
+        ],
+        media: {
+          primary: "Files/AI_Project_Screenshot/20260325_Overview.jpg",
+          secondary: "Files/AI_Project_Screenshot/20260325_Team.jpg",
+        },
+        modalProjectId: "ai",
+        actions: [{ label: "프로젝트 자세히 보기", kind: "modal", projectId: "ai" }],
+      },
+      {
+        id: "tennis-capstone",
+        tone: "cyan",
+        tags: ["머신러닝", "YOLOv8", "비디오 분석"],
+        title: "MS-BA 캡스톤: 테니스 퍼포먼스 분석",
+        meta: "Arizona State University · 2024년",
+        summary: "YOLOv8과 OpenCV를 활용해 경기 영상에서 선수 퍼포먼스 지표를 추출하는 머신러닝 파이프라인입니다.",
+        lead: "수작업 분석에 의존하던 흐름을 더 빠르고 반복 가능하게 바꾸는 것이 핵심 목표였습니다.",
+        highlights: [
+          "공 속도와 라켓 움직임을 자동 추적했습니다.",
+          "Python과 Jupyter로 CSV 기반 분석 결과를 자동 생성했습니다.",
+          "20,000건 이상 경기 분석 시간을 약 90% 단축했습니다.",
+        ],
+        media: {
+          primary: "Files/Project_Icons/Capstone_Title_Page.jpg",
+          secondary: "Files/Project_Icons/Capstone_Agenda.jpg",
+        },
+        modalProjectId: "capstone",
+        actions: [
+          { label: "프로젝트 자세히 보기", kind: "modal", projectId: "capstone" },
+          {
+            label: "발표 자료 다운로드",
+            kind: "link",
+            href: "Files/Performance Analytics - Tennis Video Analysis (2024 Capstone).pptx",
+            download: true,
+          },
+        ],
+      },
+      {
+        id: "ksa-site",
+        tone: "amber",
+        tags: ["팀 리드", "HTML/CSS/JS", "학생 단체"],
+        title: "ASU 한인학생회 웹사이트",
+        meta: "Arizona State University · 2020년 - 2021년",
+        summary: "7인 팀과 함께 기획, 프론트엔드 구현, GitHub 협업 체계를 이끌며 구축한 웹사이트 프로젝트입니다.",
+        lead: "단순한 사이트 제작이 아니라 역할 분담, 일정 관리, 유지보수 체계까지 함께 설계한 경험이었습니다.",
+        highlights: [
+          "7인 팀의 기획과 실행을 공동 리드했습니다.",
+          "HTML, CSS, JavaScript 기반 프론트엔드를 주도했습니다.",
+          "GitHub 협업 방식을 정리해 이후 운영까지 이어질 수 있게 했습니다.",
+        ],
+        media: {
+          primary: "Files/Project_Icons/ksa_logo.jpg",
+          secondary: "Files/Project_Icons/ASUforksa.png",
+          containSecondary: true,
+        },
+        modalProjectId: "ksa",
+        actions: [
+          { label: "프로젝트 자세히 보기", kind: "modal", projectId: "ksa" },
+          { label: "저장소 보기", kind: "link", href: "https://github.com/JisungWoo/ksa_website" },
+        ],
+      },
+    ],
+    secondaryProjectsLabel: "다른 프로젝트",
+    secondaryProjects: [
+      {
+        label: "개인 포트폴리오 웹사이트",
+        meta: "여러 버전으로 발전시켜 온 반응형 포트폴리오 사이트와 GitHub Pages 배포 경험.",
+        projectId: "portfolio",
+      },
+      {
+        label: "PayPal Opportunity Hackathon - 1위",
+        meta: "비영리단체를 위한 기부자 소통 도구를 3인 팀으로 구현한 해커톤 프로젝트.",
+        projectId: "paypal",
+      },
+    ],
+  },
+  experience: {
+    eyebrow: "경력",
+    title: "기술 밀도가 높고 이해관계자 조율이 필요한 환경에서도, 구조를 잃지 않는 방식으로 일합니다.",
+    intro:
+      "복잡한 시스템일수록 설명 가능해야 하고, 바쁜 조직일수록 결과가 재현 가능해야 한다고 생각합니다.",
+    deepDive: { label: "기술 상세 보기", href: deepDiveHref.replace("column_lineage_portfolio.html", "column_lineage_portfolio_kr.html") },
+    items: [
+      {
+        id: "honeywell",
+        company: "Honeywell",
+        role: "Data Engineer II",
+        period: "2024년 8월 - 현재",
+        location: "Phoenix, AZ",
+        summary: "엔터프라이즈 데이터웨어하우스 개발, AI 기반 컬럼 계보 자동화, 부서 간 전달과 조율을 함께 맡고 있습니다.",
+        chips: ["Snowflake", "AI / LLM", "컬럼 계보", "React", "SDLC"],
+        detailLink: { label: "기술 상세 보기", href: deepDiveHref.replace("column_lineage_portfolio.html", "column_lineage_portfolio_kr.html") },
+        bullets: [
+          "10만 명 이상이 활용하는 Snowflake EDW에서 9,000개 이상 테이블과 뷰를 대상으로 SQL 기반 변환 로직을 설계하고 운영하고 있습니다.",
+          "Snowflake 네이티브 LLM 기능과 Claude Opus를 결합해 컬럼 단위 계보 매핑을 자동화했고, 약 80% 정확도로 수개월짜리 문서화 작업을 수주 단위로 줄였습니다.",
+          "내부 데이터 계보 시각화 도구를 React로 프로토타이핑해 자체 데이터 카탈로그 구축 가능성을 보여주었습니다.",
+          "10인 규모 오프쇼어 팀과 협업하며 비즈니스 이해관계자와 엔지니어링 사이의 핵심 커뮤니케이션 역할을 맡고 있습니다.",
+        ],
+      },
+      {
+        id: "asuep",
+        company: "ASU Enterprise Partners",
+        role: "Data Engineer I",
+        period: "2022년 3월 - 2024년 7월",
+        location: "Tempe, AZ",
+        summary: "ETL/ELT 자동화, 파이프라인 현대화, 그리고 SQL Server, Azure, Salesforce, Workday를 잇는 데이터 통합을 담당했습니다.",
+        chips: ["SSIS", "Azure Data Factory", "SQL Server", "Power BI", "ETL / ELT"],
+        bullets: [
+          "SSIS와 Azure Data Factory 기반 적재 워크플로를 자동화해 수작업 과정과 인적 오류를 줄였습니다.",
+          "기존 SSIS 작업과 저장 프로시저를 Azure Data Factory로 이전하며 파이프라인 구조를 현대화했습니다.",
+          "Power BI 새로고침을 자동화하는 SQL Server 저장 프로시저를 구축해 리포트 운영을 단순화했습니다.",
+          "SQL Server, Salesforce, Workday, Azure Blob Storage를 잇는 ETL/ELT 파이프라인을 설계하고 최적화했습니다.",
+        ],
+      },
+      {
+        id: "oracle-cerner",
+        company: "Oracle Cerner",
+        role: "Technical Solution Analyst",
+        period: "2021년 2월 - 2022년 3월",
+        location: "Kansas City, MO",
+        summary: "헬스케어 환경에서 SQL 분석, 데이터 문제 해결, 고객 커뮤니케이션, 대량 이슈 대응을 수행했습니다.",
+        chips: ["Oracle SQL", "데이터 무결성", "로그 분석", "헬스케어", "SLA"],
+        bullets: [
+          "SQL, 로그 분석, Oracle 기반 모니터링으로 프론트엔드와 백엔드 데이터 이슈를 해결하며 90% 이상의 고객 만족도를 유지했습니다.",
+          "엔지니어링 팀과 고객 사이에서 데이터 흐름을 안정화하고 안전한 SQL 업데이트를 수행했습니다.",
+          "Oracle 쿼리 실행 계획과 시스템 로그를 분석해 손상된 파이프라인과 트랜잭션 성능 문제를 해결했습니다.",
+          "월 90~110건 규모의 이슈 큐를 처리하며 24/7 온콜 지원을 수행했습니다.",
+        ],
+      },
+    ],
+  },
+  capabilities: {
+    eyebrow: "핵심 역량",
+    title: "데이터 엔지니어링과 AI 워크플로 설계를 함께 다루는 역량 구조입니다.",
+    body: "엔터프라이즈 데이터웨어하우스의 엄격함, AI 오케스트레이션 사고, 그리고 결과를 직접 보여 줄 수 있는 프론트엔드 감각을 함께 가져가고 있습니다.",
+    groups: [
+      {
+        title: "데이터 엔지니어링",
+        items: ["Snowflake", "ETL / ELT 파이프라인", "데이터 모델링", "데이터웨어하우스", "SQL Server", "SSIS", "Informatica", "Control-M"],
+      },
+      {
+        title: "AI 워크플로",
+        items: ["멀티 에이전트 오케스트레이션", "프롬프트 설계", "LLM 기반 개발 보조", "OpenAI Codex", "Claude", "Ollama", "컬럼 계보 자동화"],
+      },
+      {
+        title: "프로토타이핑",
+        items: ["React 프로토타입", "Next.js 대시보드", "Supabase", "HTML / CSS / JavaScript", "GitHub", "워크플로 툴링"],
+      },
+      {
+        title: "협업 및 전달",
+        items: ["기술 커뮤니케이션", "문서화", "SDLC 조율", "오프쇼어 협업", "영어 (업무 활용)", "한국어 (모국어)"],
+      },
+    ],
+  },
+  journey: {
+    eyebrow: "성장 과정",
+    title: "제가 2.73에서 4.0까지 어떻게 올라갔는지 궁금하신가요?",
+    summary:
+      "재능이 갑자기 좋아진 것이 아니라, 제 약점을 인정하고 그것을 보완할 수 있는 작업 방식을 만든 결과였습니다.",
+    fromLabel: "학부 GPA",
+    toLabel: "석사 GPA",
+    bridge:
+      "저는 원래 기억력이 좋은 편이 아닙니다. 대신 세부 사항을 최대한 자세히 기록하고, 다른 사람이 봐도 이해할 수 있을 정도로 정리하는 습관을 만들었고, 그 방식이 지금의 학업과 업무 모두에 큰 도움이 되었습니다.",
+    milestones: [
+      {
+        label: "이전",
+        title: "기억에 의존하던 방식",
+        text: "저는 원래 기억력이 강한 편이 아니어서, 머릿속에만 의존하면 맥락과 세부 사항이 쉽게 빠졌습니다. 그 한계가 학업과 일 처리 방식 모두에 영향을 줬습니다.",
+      },
+      {
+        label: "전환",
+        title: "기록을 강점으로 바꾼 시기",
+        text: "부족한 기억력을 보완하기 위해 무엇을 했는지, 왜 하는지, 다음에 무엇을 해야 하는지까지 최대한 자세히 메모하고 체계적으로 정리하기 시작했습니다. 다른 사람이 봐도 바로 이해할 수 있도록 남기는 것을 기준으로 삼았습니다.",
+      },
+      {
+        label: "현재",
+        title: "업무에서도 이어지는 작업 방식",
+        text: "이 습관은 지금도 그대로 이어지고 있습니다. 정리된 노트와 명확한 문서는 협업, 인수인계, 맥락 유지에 큰 도움이 되었고, 현재 데이터 엔지니어링 업무에서도 제 강점으로 작용하고 있습니다.",
+      },
+    ],
+    action: { label: "이야기 나누기", href: "#contact" },
+  },
+  education: {
+    eyebrow: "학력",
+    title: "학위와 학업 기록.",
+    body: "학위 자체도 의미 있지만, 그 결과를 만들어 낸 작업 방식의 변화가 더 중요하다고 생각합니다.",
+    items: [
+      {
+        label: "석사",
+        degree: "비즈니스 애널리틱스 석사",
+        school: "W. P. Carey School of Business, Arizona State University",
+        period: "2023년 8월 - 2024년 12월",
+        detail: "GPA 4.0 · 우수 성적으로 졸업",
+        image: "Files/2024_MS-BA_diploma.png",
+        imageAlt: "석사 졸업장",
+        href: "Files/2024_MS-BA Diploma.pdf",
+      },
+      {
+        label: "학사",
+        degree: "컴퓨터정보시스템 학사",
+        school: "W. P. Carey School of Business, Arizona State University",
+        period: "2016년 8월 - 2020년 12월",
+        detail: "GPA 2.73",
+        image: "Files/2020_CIS_diploma.png",
+        imageAlt: "학사 졸업장",
+        href: "Files/2020_CIS_Diploma.pdf",
+      },
+    ],
+  },
+  contact: {
+    eyebrow: "연락처",
+    title: "데이터 엔지니어링, AI 플랫폼, 그리고 그 사이의 시스템에 대해 이야기 나누고 싶으신가요?",
+    body: "신뢰할 수 있는 데이터 기반을 만들고, AI를 실제 업무에 연결하는 일에 함께할 기회에 열려 있습니다.",
+    email: "jisungwoo9@gmail.com",
+    copyLabel: "이메일 복사",
+    copySuccess: "클립보드에 복사되었습니다",
+    actions: [
+      { label: "LinkedIn", href: linkedinHref },
+      { label: "GitHub", href: githubHref },
+      { label: "이력서", href: resumeHref, download: true },
+    ],
+  },
+  footer: "시스템 사고, 명확한 글쓰기, 절제된 모션을 중심으로 구성한 이중 언어 포트폴리오입니다.",
+  ui: {
+    menu: "메뉴 열기",
+    close: "닫기",
+    openDetails: "자세히 보기",
+    closeDetails: "닫기",
+    viewScreenshots: "스크린샷 보기",
+    previousImage: "이전 이미지",
+    nextImage: "다음 이미지",
+    screenshot: "스크린샷",
+    primaryNav: "주요 메뉴",
+    themeGroup: "테마 전환",
+    themeLight: "라이트",
+    themeDark: "다크",
+  },
+};
