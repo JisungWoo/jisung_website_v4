@@ -18,6 +18,7 @@
   const lightboxLayer = document.querySelector(".lightbox-layer");
   const lightboxImage = lightboxLayer?.querySelector("img") ?? null;
   const lightboxCaption = lightboxLayer?.querySelector("figcaption") ?? null;
+  const newPortfolioLayer = document.querySelector(".new-portfolio-layer");
   const copyButton = document.querySelector("[data-copy-email]");
   const copyStatus = document.querySelector(".copy-status");
   const heroStage = document.querySelector("[data-hero-stage]");
@@ -30,6 +31,8 @@
   let lastTrigger = null;
   let releaseModalFocus = function () {};
   let releaseLightboxFocus = function () {};
+  let releaseNewPortfolioFocus = function () {};
+  let newPortfolioCloseTimer = null;
 
   const readSavedTheme = () => {
     try {
@@ -215,8 +218,9 @@
 
     const first = items[0];
     const last = items[items.length - 1];
+    const preferred = items.find((element) => element.hasAttribute("data-autofocus")) ?? first;
 
-    first.focus();
+    preferred.focus();
 
     const handleKeydown = (event) => {
       if (event.key !== "Tab") return;
@@ -233,6 +237,46 @@
     layer.addEventListener("keydown", handleKeydown);
     return () => layer.removeEventListener("keydown", handleKeydown);
   };
+
+  const openNewPortfolioNotice = () => {
+    if (!newPortfolioLayer || !site.newPortfolioNotice) return;
+
+    window.clearTimeout(newPortfolioCloseTimer);
+    newPortfolioLayer.hidden = false;
+    body.style.overflow = "hidden";
+
+    window.requestAnimationFrame(() => {
+      newPortfolioLayer.classList.add("is-open");
+      releaseNewPortfolioFocus = trapFocus(newPortfolioLayer);
+    });
+  };
+
+  const closeNewPortfolioNotice = () => {
+    if (!newPortfolioLayer || newPortfolioLayer.hidden) return;
+
+    newPortfolioLayer.classList.remove("is-open");
+    releaseNewPortfolioFocus();
+    body.style.overflow = "";
+
+    const hideLayer = () => {
+      newPortfolioLayer.hidden = true;
+    };
+
+    if (prefersReducedMotion) {
+      hideLayer();
+      return;
+    }
+
+    newPortfolioCloseTimer = window.setTimeout(hideLayer, 280);
+  };
+
+  document.querySelectorAll("[data-close-new-portfolio]").forEach((button) => {
+    button.addEventListener("click", closeNewPortfolioNotice);
+  });
+
+  if (site.newPortfolioNotice) {
+    window.setTimeout(openNewPortfolioNotice, prefersReducedMotion ? 0 : 420);
+  }
 
   const renderModalProject = (project) => {
     if (!modalContent) return;
@@ -374,6 +418,7 @@
     if (event.key === "Escape") {
       if (lightboxLayer && !lightboxLayer.hidden) closeLightbox();
       else if (modalLayer && !modalLayer.hidden) closeModal();
+      else if (newPortfolioLayer && !newPortfolioLayer.hidden) closeNewPortfolioNotice();
     }
 
     if (!lightboxLayer || lightboxLayer.hidden || !activeProject?.screenshots?.length) return;

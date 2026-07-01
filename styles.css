@@ -1076,10 +1076,15 @@ html[lang="ko"] .experience-company {
 }
 
 .modal-layer,
-.lightbox-layer {
+.lightbox-layer,
+.new-portfolio-layer {
   position: fixed;
   inset: 0;
   z-index: 100;
+}
+
+.new-portfolio-layer {
+  z-index: 120;
 }
 
 .modal-backdrop {
@@ -1087,6 +1092,15 @@ html[lang="ko"] .experience-company {
   inset: 0;
   background: var(--overlay);
   backdrop-filter: blur(10px);
+}
+
+.new-portfolio-layer .modal-backdrop {
+  opacity: 0;
+  transition: opacity 280ms ease;
+}
+
+.new-portfolio-layer.is-open .modal-backdrop {
+  opacity: 1;
 }
 
 .project-modal,
@@ -1100,6 +1114,53 @@ html[lang="ko"] .experience-company {
   border-radius: var(--radius-xl);
   background: var(--surface-strong);
   box-shadow: var(--shadow);
+}
+
+.new-portfolio-card {
+  position: absolute;
+  inset: 50% auto auto 50%;
+  width: min(640px, calc(100vw - 2rem));
+  padding: clamp(1.45rem, 4vw, 2.25rem);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-xl);
+  background:
+    linear-gradient(135deg, rgba(255, 107, 87, 0.08), transparent 38%),
+    linear-gradient(315deg, rgba(27, 136, 201, 0.08), transparent 42%),
+    var(--surface-strong);
+  box-shadow: var(--shadow);
+  opacity: 0;
+  transform: translate(-50%, -44%) scale(0.96);
+  transition:
+    opacity 280ms ease,
+    transform 280ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.new-portfolio-layer.is-open .new-portfolio-card {
+  opacity: 1;
+  transform: translate(-50%, -50%) scale(1);
+}
+
+.new-portfolio-title {
+  max-width: 30rem;
+  margin: 0;
+  font-family: var(--display);
+  font-size: clamp(2rem, 5vw, 3.6rem);
+  line-height: 1;
+  letter-spacing: 0;
+}
+
+.new-portfolio-copy {
+  max-width: 34rem;
+  margin: 1rem 0 0;
+  color: var(--muted);
+  font-size: 1.02rem;
+}
+
+.new-portfolio-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.8rem;
+  margin-top: 1.5rem;
 }
 
 .modal-scroll {

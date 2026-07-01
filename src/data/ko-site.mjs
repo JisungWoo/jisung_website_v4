@@ -7,6 +7,15 @@ export const koSite = {
   description:
     "엔터프라이즈 데이터 플랫폼과 AI 워크플로를 설계하고 구현하는 데이터 엔지니어 Jisung Woo의 포트폴리오입니다.",
   localeSwitch: { label: "EN", text: "English", href: "index.html" },
+  newPortfolioNotice: {
+    eyebrow: "Portfolio v5 공개",
+    title: "새 포트폴리오에 오신 것을 환영합니다.",
+    body:
+      "최신 작업과 방향성을 담은 새 포트폴리오를 준비했습니다. 이 버전을 계속 보셔도 되고, 새 버전으로 바로 이동할 수도 있습니다.",
+    href: "https://jisungwoo.github.io/jisung_website_v5",
+    linkLabel: "새 포트폴리오 보기",
+    dismissLabel: "여기에 머무르기",
+  },
   nav: [
     { label: "소개", href: "#about" },
     { label: "AI 철학", href: "#philosophy" },

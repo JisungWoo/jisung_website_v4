@@ -408,6 +408,28 @@ const renderFooter = (site, year) => `
     <small>&copy; ${year} ${site.hero.name}</small>
   </footer>`;
 
+const renderNewPortfolioNotice = (site) => {
+  const notice = site.newPortfolioNotice;
+  if (!notice) return "";
+
+  const external = /^https?:/i.test(notice.href);
+  const target = external ? ' target="_blank" rel="noreferrer"' : "";
+
+  return `<div class="new-portfolio-layer" hidden>
+    <div class="modal-backdrop" data-close-new-portfolio></div>
+    <section class="new-portfolio-card" role="dialog" aria-modal="true" aria-labelledby="new-portfolio-title" aria-describedby="new-portfolio-copy">
+      <button class="modal-close new-portfolio-close" type="button" data-close-new-portfolio aria-label="${site.ui.close}">&times;</button>
+      <p class="eyebrow">${notice.eyebrow}</p>
+      <h2 id="new-portfolio-title" class="new-portfolio-title">${notice.title}</h2>
+      <p id="new-portfolio-copy" class="new-portfolio-copy">${notice.body}</p>
+      <div class="new-portfolio-actions">
+        <a class="cta-primary" href="${notice.href}"${target} data-autofocus>${notice.linkLabel}</a>
+        <button class="cta-secondary" type="button" data-close-new-portfolio>${notice.dismissLabel}</button>
+      </div>
+    </section>
+  </div>`;
+};
+
 const renderPage = (site, shared) => {
   const payload = safeJson({ site, shared });
 
@@ -452,6 +474,7 @@ const renderPage = (site, shared) => {
     ${renderContact(site)}
   </main>
   ${renderFooter(site, shared.year)}
+  ${renderNewPortfolioNotice(site)}
   <div class="modal-layer" hidden>
     <div class="modal-backdrop" data-close-modal></div>
     <section class="project-modal" role="dialog" aria-modal="true" aria-labelledby="modal-title">

@@ -7,6 +7,15 @@ export const enSite = {
   description:
     "Data engineer and AI systems builder creating enterprise data platforms, orchestration workflows, and trustworthy analytics experiences.",
   localeSwitch: { label: "KR", text: "Korean", href: "index_kr.html" },
+  newPortfolioNotice: {
+    eyebrow: "Portfolio v5 is live",
+    title: "Welcome to my new portfolio.",
+    body:
+      "I have a newer portfolio with my latest work and direction. You can keep browsing this version or jump straight to the new one.",
+    href: "https://jisungwoo.github.io/jisung_website_v5",
+    linkLabel: "Visit portfolio v5",
+    dismissLabel: "Stay here",
+  },
   nav: [
     { label: "About", href: "#about" },
     { label: "AI Philosophy", href: "#philosophy" },
