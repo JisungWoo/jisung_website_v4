@@ -11,7 +11,7 @@ export const enSite = {
     eyebrow: "Portfolio v5 is live",
     title: "Welcome to my new portfolio.",
     body:
-      "I have a newer portfolio with my latest work and direction. You can keep browsing this version or jump straight to the new one.",
+      "As of 6/30/2026, I have a newer portfolio with my latest work and direction. You can keep browsing this version or jump straight to the new one.",
     href: "https://jisungwoo.github.io/jisung_website_v5",
     linkLabel: "Visit portfolio v5",
     dismissLabel: "Stay here",

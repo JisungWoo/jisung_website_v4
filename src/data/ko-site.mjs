@@ -11,7 +11,7 @@ export const koSite = {
     eyebrow: "Portfolio v5 공개",
     title: "새 포트폴리오에 오신 것을 환영합니다.",
     body:
-      "최신 작업과 방향성을 담은 새 포트폴리오를 준비했습니다. 이 버전을 계속 보셔도 되고, 새 버전으로 바로 이동할 수도 있습니다.",
+      "2026년 6월 30일 기준, 최신 작업과 방향성을 담은 새 포트폴리오를 준비했습니다. 이 버전을 계속 보셔도 되고, 새 버전으로 바로 이동할 수도 있습니다.",
     href: "https://jisungwoo.github.io/jisung_website_v5",
     linkLabel: "새 포트폴리오 보기",
     dismissLabel: "여기에 머무르기",
